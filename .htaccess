@@ -1,0 +1,5 @@
+RewriteEngine On
+
+RewriteBase "/"
+RewriteCond "%{REQUEST_URI}" "!/Svelte TS/public"
+RewriteRule "^(.*)" "/Svelte TS/public/$1" [L,PT]
