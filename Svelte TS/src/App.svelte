@@ -8,8 +8,8 @@ import Header from '../components/Header.svelte';
 	<title>SmartPizza</title>
 	<meta charset="utf-8">
 
-	<link rel="stylesheet" href="../resources/fonts/Montserrat/font.css">
-	<link rel="stylesheet" href="../resources/icons/fontawesome-free-5.15.1-web/css/all.css">
+	<link rel="stylesheet" href="./resources/fonts/Montserrat/font.css">
+	<link rel="stylesheet" href="./resources/icons/fontawesome-free-5.15.1-web/css/all.css">
 </svelte:head>
 
 <main>
