@@ -1,5 +1,13 @@
+<script>
+
+import Logo from './Logo.svelte';
+import SearchArea from './SearchArea.svelte';
+
+</script>
+
 <div class="header">
-    SmartPizza <i class="fas fa-pizza-slice"></i>
+    <Logo />
+    <SearchArea />
 </div>
 
 <style>
