@@ -22,25 +22,73 @@ let extendHTMLElement = function () {
         eventType,
         handler
     ) {
+        let messagePrefix = "\n\nCannot apply event-delegation:\n";
+        let message = messagePrefix;
+
         let self = this;
 
-        self.addEventListener(
-            eventType,
-            function(e) {
-                self.querySelectorAll(selector).forEach(function(element) {
-                    //console.debug(e.target);
+        let events = [];
 
-                    if(e.target === element || e.target.childOf(element)) {
+        if(typeof eventType === "string") {
+            events.push(eventType);
+        }
+        
+        else
+
+        if(eventType instanceof Array) {
+            for(let i = 0; i < eventType.length; i++) {
+                if(typeof eventType[i] !== "string") {
+                    message += "\nArgument 'eventType':";
+                    message += "\nMust be an array of strings";
+                    message += "\n\n";
+
+                    throw new Error(message);
+                }
+
+                events.push(eventType[i]);
+            }
+        }
+
+        else
+        
+        {
+            message += "\nArgument 'eventType':";
+            message += "\nMust be a string or an array of strings";
+            message += "\n\n";
+
+            throw new Error(message);
+        }
+
+        for(let i = 0; i < events.length; i++) {
+            self.addEventListener(
+                events[i],
+                function(e) {
+                    if(selector.length === 0) {
                         let evt = {
                             originalEvent:       e,
-                            realTarget:    element
+                            realTarget:       self,
+                            data:          e.detail
                         };
 
                         handler(evt);
+                    } else {
+                        self.querySelectorAll(selector).forEach(function(element) {
+                            //console.debug(e.target);
+        
+                            if(e.target === element || e.target.childOf(element)) {
+                                let evt = {
+                                    originalEvent:        e,
+                                    realTarget:     element,
+                                    data:          e.detail
+                                };
+        
+                                handler(evt);
+                            }
+                        });
                     }
-                });
-            }
-        );
+                }
+            );
+        }
     }
 
     HTMLElement.prototype.climbUntil = function (className) {
@@ -59,6 +107,23 @@ let extendHTMLElement = function () {
         }
 
         return null;
+    }
+
+    HTMLElement.prototype.descendUntil = function (selector) {
+        return this.querySelectorAll(selector);
+    }
+
+    HTMLElement.prototype.triggerEvent = function (
+        eventType,
+        data
+    ) {
+        this.dispatchEvent(new CustomEvent(
+          eventType,
+          {
+              bubbles: true,
+              detail: data
+          }
+        ));
     }
 };
 

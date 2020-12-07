@@ -1,6 +1,7 @@
 <script>
 
-import TextfieldNumber from './TextfieldNumber.svelte';
+import SWGTextfieldNumber from './SWGTextfieldNumber.svelte';
+import SWGButton from './SWGButton.svelte';
 
 export let id;
 
@@ -9,7 +10,7 @@ export let id;
 <div class="pizza-item" key={id}>
     <div class="pizza-image-box">
         <div class="pizza-image">
-            <img src={window.pizzas[id].image} alt={id}>
+            <img src={window.PIZZAS[id].image} alt={id}>
         </div>
         <div class="pizza-name">
             {id}
@@ -17,18 +18,22 @@ export let id;
     </div>
     <div class="pizza-controls">
         <div class="pizza-price">
-            {window.pizzas[id].price} €
+            {window.PIZZAS[id].price} €
         </div>
         <div class="pizza-qty">
-            <TextfieldNumber label="Quantità" value=1 minValue=0 maxValue=9999/>
+            <SWGTextfieldNumber label="Quantità" value=1 step=1 min=1 max=9999 object="pizza.qty"/>
         </div>
         <div class="pizza-buttons">
-            <div class="btn btn-add-ingredients" role=button tabindex=0>
-                Aggiungi ingredienti
-            </div>
-            <div class="btn btn-checkout" role=button tabindex=0>
-                Aggiungi al carrello
-            </div>
+            <SWGButton object="pizza.add-ingredients">
+                <div class="btn btn-add-ingredients">
+                    Aggiungi ingredienti
+                </div>
+            </SWGButton>
+            <SWGButton object="pizza.add-to-cart">
+                <div class="btn btn-add-to-cart">
+                    Aggiungi al carrello
+                </div>
+            </SWGButton>
         </div>
     </div>
 </div>
@@ -99,11 +104,9 @@ export let id;
 }
 
 .btn {
-    display: block;
     padding: 10px 16px;
     border-radius: 5px;
     text-align: center;
-    cursor: pointer;
 }
 
 .btn-add-ingredients {
@@ -111,7 +114,7 @@ export let id;
     border: 1px solid;
 }
 
-.btn-checkout {
+.btn-add-to-cart {
     margin-top: 10px;
     color: #ffffff;
     background-color: #0084ff;

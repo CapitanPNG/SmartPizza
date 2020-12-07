@@ -7,13 +7,13 @@ export let id;
 <div class="pizza-details">
     {#if id !== null}
         <div class="pizza-image-box">
-            <img src={window.pizzas[id].image} alt={"Pizza " + id}>
+            <img src={window.PIZZAS[id].image} alt={"Pizza " + id}>
         </div>
         <div class="pizza-name">
             Pizza {id}
         </div>
         <div class="pizza-description">
-            {window.pizzas[id].description}
+            {window.PIZZAS[id].description}
         </div>
     {/if}
 </div>
