@@ -1,6 +1,7 @@
 <script>
 
 import Button from './Button.svelte';
+import NumericTextfield from './NumericTextfield.svelte';
 
 export let id = null;
 
@@ -20,7 +21,7 @@ export let id = null;
             {window.PIZZA[id].temp.price} €
         </div>
         <div class="pizza-qty">
-            <SWGTextfieldNumber label="Quantità" value=1 step=1 min=1 max=9999 />
+            <NumericTextfield label="Quantità" minValue=1 value=1 />
         </div>
         <div class="pizza-buttons">
             <Button>
