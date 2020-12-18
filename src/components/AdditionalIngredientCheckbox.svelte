@@ -1,11 +1,9 @@
 <script>
-    
-import { onMount } from 'svelte';
 
 import Checkbox from './Checkbox.svelte';
 
-export let data;
 export let numSelectedAdditionalIngredients;
+export let data;
 
 let checked = false;
 let value   = data.name;

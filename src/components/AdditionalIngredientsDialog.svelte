@@ -1,9 +1,12 @@
 <script>
 
+import { onMount } from 'svelte';
+
 import Dialog from './Dialog.svelte';
 
 import AdditionalIngredientCheckbox from "./AdditionalIngredientCheckbox.svelte";
 import Button from './Button.svelte';
+import { element } from 'svelte/internal';
 
 export let onClose = ()=>{};
 
@@ -33,6 +36,22 @@ let saveAdditionalIngredients = function () {
     console.debug(pizzaData[currentPizza].additionalIngredients);
 };
 
+onMount(function(e) {
+    numSelectedAdditionalIngredients = 0;
+
+    options.querySelectorAll("input").forEach(function(element) {
+        for(let i = 0; i < pizzaData[currentPizza].additionalIngredients.length; i++) {
+            let value = pizzaData[currentPizza].additionalIngredients[i];
+
+            if(element.value === value) {
+                element.checked = element.value === value;
+
+                numSelectedAdditionalIngredients++;
+            }
+        }
+    });
+});
+
 </script>
 
 <Dialog {onClose} >
@@ -50,7 +69,10 @@ let saveAdditionalIngredients = function () {
         </div>
         <div class="options" bind:this={options}>
             {#each window.ADDITIONAL_INGREDIENTS as data}
-                <AdditionalIngredientCheckbox {data} bind:numSelectedAdditionalIngredients />
+                <AdditionalIngredientCheckbox
+                bind:numSelectedAdditionalIngredients
+                {data}
+                />
             {/each}
         </div>
         <div class="controls-box">

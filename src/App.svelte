@@ -62,27 +62,27 @@ window.PIZZA = {
 window.ADDITIONAL_INGREDIENTS = [
 	{
 		"name":  "Wurstel",
-		"image": "https://www.ilfattoalimentare.it/wp-content/uploads/2017/04/Fotolia_75338534_Subscription_Monthly_M.jpg"
+		"image": "./resources/imgs/Wurstel.jpg"
 	},
 	{
 		"name":  "Patate",
-		"image": "https://www.ricettedigusto.info/wp-content/uploads/2016/02/Patate-fritte-croccanti.jpg"
+		"image": "./resources/imgs/Patate.jpg"
 	},
 	{
 		"name":  "Funghi",
-		"image": "https://www.ricettadicucina.com/upload/recipe/9/f/9/21bdcf108dd762f4287fb8008772fb0744a7fe65.jpg"
+		"image": "./resources/imgs/Funghi.jpg"
 	},
 	{
 		"name":  "Salsicce",
-		"image": "https://www.macelleriasalvi.it/wp-content/uploads/2020/03/salsicce-3-1.jpg"
+		"image": "./Resources/imgs/Salsicce.webp"
 	},
 	{
 		"name":  "Acciughe",
-		"image": "https://www.baccalaria.it/wp-content/uploads/2016/02/colatura-di-alici.jpg"
+		"image": "./Resources/imgs/Acciughe.jpg"
 	},
 	{
 		"name":  "Cipolle",
-		"image": "https://file.cure-naturali.it/site/image/content/16531.jpg?format=jpg"
+		"image": "./Resources/imgs/Cipolle.jpg"
 	}
 ];
 
