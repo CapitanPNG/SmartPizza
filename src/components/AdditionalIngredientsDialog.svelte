@@ -1,9 +1,10 @@
 <script>
-import { onMount } from "svelte";
+
+import { onMount } from 'svelte';
 
 import Dialog from './Dialog.svelte';
 
-import CheckboxAdditionalIngredient from "./CheckboxAdditionalIngredient.svelte";
+import AdditionalIngredientCheckbox from "./AdditionalIngredientCheckbox.svelte";
 import Button from './Button.svelte';
 
 export let onClose = ()=>{};
@@ -47,8 +48,8 @@ export let additionalPrice;
             Seleziona fino a {window.MAX_SELECTED_ADDITIONAL_INGREDIENTS} ingredienti da aggiungere alla tua pizza
         </div>
         <div class="options">
-            {#each window.ADDITIONAL_INGREDIENTS as additionalIngredient}
-                <CheckboxAdditionalIngredient {additionalIngredient} />
+            {#each window.ADDITIONAL_INGREDIENTS as data}
+                <AdditionalIngredientCheckbox {data} />
             {/each}
         </div>
         <div class="controls-box">

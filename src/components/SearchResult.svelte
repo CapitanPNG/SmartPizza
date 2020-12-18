@@ -30,7 +30,7 @@ let openAdditionalIngredientsDialog = function () {
             {pizzaData[id].price} €
         </div>
         <div class="pizza-qty">
-            <NumericTextfield label="Quantità" minValue=1 bind:value={pizzaData[id].quantity} on:swg-change={()=>{}} />
+            <NumericTextfield label="Quantità" minValue=1 bind:value={pizzaData[id].quantity} />
         </div>
         <div class="pizza-buttons">
             <Button>
