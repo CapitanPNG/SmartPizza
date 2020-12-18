@@ -173,8 +173,8 @@ onMount(function(e) {
 </script>
 
 <div class="numeric-textfield" bind:this={controller}>
-    <Button on:click={decrementValue}>
-        <div class="btn btn-minus">
+    <Button>
+        <div class="btn btn-minus" on:click={decrementValue}>
             -
         </div>
     </Button>
@@ -187,8 +187,8 @@ onMount(function(e) {
             on:wheel={callbacks.wheel}
         >
     </div>
-    <Button on:click={incrementValue}>
-        <div class="btn btn-plus">
+    <Button>
+        <div class="btn btn-plus" on:click={incrementValue}>
             +
         </div>
     </Button>
@@ -217,16 +217,23 @@ onMount(function(e) {
     border-radius: 5px;
 }
 
-.box-label {
+.label {
     padding: 6px 18px;
 }
 
-.box-value {
+input {
     width: 60px;
     padding: 6px 10px;
     border: none;
     border-left: 1px solid #0085ff;
     text-align: center;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.label,
+input {
+    color: #0085ff;
 }
 
 .btn-plus {
@@ -247,6 +254,7 @@ onMount(function(e) {
     border-radius: 5px;
     text-align: center;
     cursor: pointer;
+    user-select: none;
 }
 
 </style>

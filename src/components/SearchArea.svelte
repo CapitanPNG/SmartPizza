@@ -27,7 +27,9 @@ let searchResults = [];
 	justify-content: center;
 	align-items: center;
 	background-color: inherit;
-	border-right: 1px solid #0085ff;
+    border-right: 1px solid #0085ff;
+    
+    width: 40%;
 }
 
 </style>
