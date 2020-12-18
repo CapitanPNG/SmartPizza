@@ -13,3 +13,18 @@ body {
 	top: 0;
 	font-family: "Montserrat";
 }
+
+.btn {
+	border: 1px solid #0085ff;
+	border-radius: 5px;
+}
+
+.btn-color {
+	color: #0085ff;
+	background-color: #ffffff;
+}
+
+.btn-color-full {
+	color: #ffffff;
+	background-color: #0085ff;
+}

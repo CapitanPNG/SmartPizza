@@ -27,12 +27,12 @@ let quantity = 1;
         </div>
         <div class="pizza-buttons">
             <Button>
-                <div class="btn btn-add-ingredients">
+                <div class="btn btn-color btn-add-ingredients">
                     Aggiungi ingredienti
                 </div>
             </Button>
             <Button>
-                <div class="btn btn-add-to-cart">
+                <div class="btn btn-color-full btn-add-to-cart">
                     Aggiungi al carrello
                 </div>
             </Button>
@@ -113,18 +113,15 @@ img {
 }
 
 .btn-add-ingredients {
-    color: #0084ff;
-    border: 1px solid;
+    
 }
 
 .btn-add-to-cart {
     margin-top: 10px;
-    color: #ffffff;
-    background-color: #0084ff;
 }
 
 .pizza-item:hover .pizza-name {
-    background-color: #0084ff99;
+    background-color: #0085ff99;
 }
 
 </style>
