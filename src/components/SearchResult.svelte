@@ -21,7 +21,7 @@ export let id = null;
             {window.PIZZA[id].temp.price} €
         </div>
         <div class="pizza-qty">
-            <NumericTextfield label="Quantità" minValue=1 value=1 />
+            <NumericTextfield label="Quantità" minValue=1 value=1 on:swg-change={()=>{}} />
         </div>
         <div class="pizza-buttons">
             <Button>
