@@ -4,10 +4,11 @@ import SearchBar from './SearchBar.svelte';
 import SearchResults from './SearchResults.svelte';
 import SearchResult from './SearchResult.svelte';
 
-let searchResults = [];
-
 export let currentPizza = null;
 export let dialogsState;
+export let pizzaData;
+
+let searchResults = [];
 
 </script>
 
@@ -15,7 +16,7 @@ export let dialogsState;
     <SearchBar bind:searchResults />
     <SearchResults>
         {#each searchResults as id}
-            <SearchResult {id} bind:currentPizza bind:dialogsState />
+            <SearchResult {id} bind:currentPizza bind:dialogsState {pizzaData} />
         {/each}
     </SearchResults>
 </div>

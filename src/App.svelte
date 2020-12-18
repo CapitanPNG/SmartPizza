@@ -1,6 +1,7 @@
 <script>
 
 import { onMount } from 'svelte';
+
 import AdditionalIngredientsDialog from './components/AdditionalIngredientsDialog.svelte';
 
 import SearchArea from './components/SearchArea.svelte';
@@ -96,6 +97,18 @@ let searchResults = [];
 
 let currentPizza = null;
 
+let pizzaData = {};
+
+let setDefaultsPizzaData = function () {
+	for(let key in window.PIZZA) {
+		pizzaData[key] = {
+			"price": window.PIZZA[key].price,
+			"quantity": 1,
+			"additionalIngredients": []
+		};
+	}
+};
+
 window.shoppingCart = [];
 
 let additionalPrice = 0;
@@ -114,6 +127,10 @@ let pizzaCalcPrice = function (pizzaId) {
 	return price;
 };
 
+onMount(function(e) {
+	setDefaultsPizzaData();
+});
+
 </script>
 
 <svelte:head>
@@ -124,7 +141,7 @@ let pizzaCalcPrice = function (pizzaId) {
 </svelte:head>
 
 <main>
-	<SearchArea bind:currentPizza bind:dialogsState />
+	<SearchArea bind:currentPizza bind:dialogsState bind:pizzaData />
 	{#if dialogsState.additionalIngredients}
 		<AdditionalIngredientsDialog
 			onClose={()=>{dialogsState.additionalIngredients = false;}}

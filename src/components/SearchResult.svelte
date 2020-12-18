@@ -6,8 +6,7 @@ import NumericTextfield from './NumericTextfield.svelte';
 export let id;
 export let currentPizza;
 export let dialogsState;
-
-let quantity = 1;
+export let pizzaData;
 
 let openAdditionalIngredientsDialog = function () {
     currentPizza = id;
@@ -28,10 +27,10 @@ let openAdditionalIngredientsDialog = function () {
     </div>
     <div class="pizza-controls">
         <div class="pizza-price">
-            {window.PIZZA[id].price} €
+            {pizzaData[id].price} €
         </div>
         <div class="pizza-qty">
-            <NumericTextfield label="Quantità" minValue=1 value={quantity} on:swg-change={()=>{}} />
+            <NumericTextfield label="Quantità" minValue=1 bind:value={pizzaData[id].quantity} on:swg-change={()=>{}} />
         </div>
         <div class="pizza-buttons">
             <Button>
