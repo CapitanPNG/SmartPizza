@@ -1,6 +1,0 @@
-RewriteEngine On
-
-RewriteBase "/"
-RewriteCond "%{REQUEST_URI}" "!/Svelte TS/public"
-RewriteCond "%{REQUEST_URI}" "!/Svelte TS/resources"
-RewriteRule "^(.*)" "/Svelte TS/public/$1" [L,PT]
