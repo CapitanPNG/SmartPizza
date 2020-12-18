@@ -27,6 +27,16 @@ let saveAdditionalIngredients = function () {
     options.querySelectorAll("input").forEach(function(element) {
         if(element.checked) {
             pizzaData[currentPizza].additionalIngredients.push(element.value);
+
+            pizzaData[currentPizza].price =
+                (
+                    parseFloat(window.PIZZA[currentPizza].price)
+                    +
+                    numSelectedAdditionalIngredients * window.ADDITIONAL_INGREDIENT_PRICE
+                )
+                *
+                pizzaData[currentPizza].quantity
+            ;
         }
     });
 

@@ -3,10 +3,20 @@
 import Button from './Button.svelte';
 import NumericTextfield from './NumericTextfield.svelte';
 
-export let id;
-export let currentPizza;
 export let dialogsState;
+export let currentPizza;
 export let pizzaData;
+export let id;
+
+$: pizzaData[id].price =
+    (
+        parseFloat(window.PIZZA[id].price)
+        +
+        pizzaData[id].additionalIngredients.length * window.ADDITIONAL_INGREDIENT_PRICE
+    )
+    *
+    pizzaData[id].quantity
+;
 
 let openAdditionalIngredientsDialog = function () {
     currentPizza = id;
@@ -29,7 +39,7 @@ let openAdditionalIngredientsDialog = function () {
         <div class="pizza-price">
             {pizzaData[id].price} €
         </div>
-        <div class="pizza-qty">
+        <div class="pizza-quantity">
             <NumericTextfield label="Quantità" minValue=1 bind:value={pizzaData[id].quantity} />
         </div>
         <div class="pizza-buttons">
@@ -105,7 +115,7 @@ img {
     text-align: center;
 }
 
-.pizza-qty {
+.pizza-quantity {
 
 }
 
