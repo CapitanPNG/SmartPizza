@@ -4,9 +4,8 @@ import Button from './Button.svelte';
 import NumericTextfield from './NumericTextfield.svelte';
 
 export let id;
+export let currentPizza;
 export let dialogsState;
-
-let currentPizza = null;
 
 let quantity = 1;
 
