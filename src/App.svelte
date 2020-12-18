@@ -3,8 +3,10 @@
 import { onMount } from 'svelte';
 
 import AdditionalIngredientsDialog from './components/AdditionalIngredientsDialog.svelte';
+import CartDialog from './components/CartDialog.svelte';
 import SearchArea from './components/SearchArea.svelte';
 import ResultDescription from './components/ResultDescription.svelte';
+import Button from './components/Button.svelte';
 
 window.PIZZA = {
 	"Margherita": {
@@ -87,7 +89,7 @@ window.ADDITIONAL_INGREDIENTS = [
 ];
 
 window.MAX_SELECTED_ADDITIONAL_INGREDIENTS = 3;
-window.ADDITIONAL_INGREDIENT_PRICE = 0.50;
+window.ADDITIONAL_INGREDIENT_PRICE = "0.50";
 
 window.currencyFormatter = new Intl.NumberFormat(
     "it-IT",
@@ -98,7 +100,8 @@ window.currencyFormatter = new Intl.NumberFormat(
 );
 
 let dialogsState = {
-	"additionalIngredients": false
+	"additionalIngredients": false,
+	"cart"                 : false
 };
 
 let searchResults = [];
@@ -119,23 +122,7 @@ let setDefaultsPizzaData = function () {
 
 let numSelectedAdditionalIngredients = 0;
 
-window.shoppingCart = [];
-
-let additionalPrice = 0;
-
-let pizzaTotalPrice = 0;
-
-let pizzaCalcPrice = function (pizzaId) {
-	let price = window.PIZZAS[pizzaId].price;
-
-	for(let key in window.selectedAdditionalIngredients[pizzaId]) {
-		price += window.ADDITIONAL_INGREDIENT_PRICE;
-	}
-
-	price *= parseInt(document.querySelector(".pizza-item[key='" + pizzaId + "'] input").value);
-
-	return price;
-};
+let shoppingCart = [];
 
 onMount(function(e) {
 	setDefaultsPizzaData();
@@ -151,8 +138,24 @@ onMount(function(e) {
 </svelte:head>
 
 <main>
-	<SearchArea bind:currentPizza bind:dialogsState bind:pizzaData />
+	<SearchArea
+		bind:dialogsState
+		bind:currentPizza
+		bind:pizzaData
+		bind:shoppingCart
+	/>
+
 	<ResultDescription {currentPizza} />
+
+	{#if shoppingCart.length > 0}
+		<Button>
+			<div class="btn btn-color-full btn-go-to-cart"
+				on:click={()=>{dialogsState.cart = true;}}
+			>
+				Procedi al carrello
+			</div>
+		</Button>
+	{/if}
 
 	{#if dialogsState.additionalIngredients}
 		<AdditionalIngredientsDialog
@@ -161,6 +164,13 @@ onMount(function(e) {
 			bind:currentPizza
 			bind:pizzaData
 			{numSelectedAdditionalIngredients}
+		/>
+	{/if}
+
+	{#if dialogsState.cart}
+		<CartDialog
+			onClose={()=>{dialogsState.cart = false;}}
+			{shoppingCart}
 		/>
 	{/if}
 </main>
@@ -175,6 +185,14 @@ main {
 	justify-content: space-between;
 	align-items: center;
 	background-color: #ffffff;
+}
+
+.btn-go-to-cart {
+	margin: 10px;
+	padding: 10px 16px;
+	position: absolute;
+	right: 0;
+	top: 0;
 }
 
 </style>

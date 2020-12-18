@@ -7,6 +7,7 @@ export let dialogsState;
 export let currentPizza;
 export let pizzaData;
 export let id;
+export let shoppingCart;
 
 $: pizzaData[id].price =
     window.currencyFormatter.format(
@@ -31,6 +32,38 @@ let openAdditionalIngredientsDialog = function () {
 
     dialogsState.additionalIngredients = true;
 }
+
+let addToCart = function () {
+    let identifier = {
+        "name" : id,
+        "price": window.currencyFormatter.format(parseFloat(window.PIZZA[id].price))
+    };
+
+    let additionalIngredients = [];
+
+    for(let i = 0; i < pizzaData[id].additionalIngredients.length; i++) {
+        additionalIngredients.push({
+            "name" : pizzaData[id].additionalIngredients[i],
+            "price": window.currencyFormatter.format(parseFloat(window.ADDITIONAL_INGREDIENT_PRICE))
+        });
+    }
+
+    let quantity = pizzaData[id].quantity;
+
+    let item = {
+        "id"                   : identifier,
+        "additionalIngredients": additionalIngredients,
+        "quantity"             : quantity,
+        "totalPrice"           : pizzaData[id].price
+    };
+
+    shoppingCart.push(item);
+
+    shoppingCart = shoppingCart;
+
+    console.debug("Shopping-Cart: ");
+    console.debug(shoppingCart);
+};
 
 </script>
 
@@ -57,7 +90,7 @@ let openAdditionalIngredientsDialog = function () {
                 </div>
             </Button>
             <Button>
-                <div class="btn btn-color-full btn-add-to-cart" on:click={()=>{}}>
+                <div class="btn btn-color-full btn-add-to-cart" on:click={addToCart}>
                     Aggiungi al carrello
                 </div>
             </Button>

@@ -79,38 +79,44 @@ onMount(function(e) {
 
 </script>
 
-<Dialog {onClose} >
-    <div slot="header" class="dialog-header">
-        <div class="pizza-name">
-            Pizza {currentPizza}
+<div class="additional-ingredients-dialog">
+    <Dialog {onClose} >
+        <div slot="header" class="dialog-header">
+            <div class="pizza-name">
+                Pizza {currentPizza}
+            </div>
+            <div class="additional-price">
+                Costo aggiuntivo unitario di {additionalPrice}
+            </div>
         </div>
-        <div class="additional-price">
-            Costo aggiuntivo unitario di {additionalPrice}
+        <div slot="body" class="dialog-body">
+            <div class="hint">
+                Seleziona fino a {window.MAX_SELECTED_ADDITIONAL_INGREDIENTS} ingredienti da aggiungere alla tua pizza
+            </div>
+            <div class="options" bind:this={options}>
+                {#each window.ADDITIONAL_INGREDIENTS as data}
+                    <AdditionalIngredientCheckbox
+                    bind:numSelectedAdditionalIngredients
+                    {data}
+                    />
+                {/each}
+            </div>
+            <div class="controls-box">
+                <Button>
+                    <div class="btn btn-save" on:click={saveAdditionalIngredients}>
+                        Salva
+                    </div>
+                </Button>
+            </div>
         </div>
-    </div>
-    <div slot="body" class="dialog-body">
-        <div class="hint">
-            Seleziona fino a {window.MAX_SELECTED_ADDITIONAL_INGREDIENTS} ingredienti da aggiungere alla tua pizza
-        </div>
-        <div class="options" bind:this={options}>
-            {#each window.ADDITIONAL_INGREDIENTS as data}
-                <AdditionalIngredientCheckbox
-                bind:numSelectedAdditionalIngredients
-                {data}
-                />
-            {/each}
-        </div>
-        <div class="controls-box">
-            <Button>
-                <div class="btn btn-save" on:click={saveAdditionalIngredients}>
-                    Salva
-                </div>
-            </Button>
-        </div>
-    </div>
-</Dialog>
+    </Dialog>
+</div>
 
 <style>
+
+.additional-ingredients-dialog {
+    
+}
 
 .dialog-header {
     width: 100%;

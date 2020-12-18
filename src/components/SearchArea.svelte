@@ -7,6 +7,7 @@ import SearchResult from './SearchResult.svelte';
 export let dialogsState;
 export let currentPizza = null;
 export let pizzaData;
+export let shoppingCart;
 
 let searchResults = [];
 
@@ -20,6 +21,7 @@ let searchResults = [];
                 bind:dialogsState
                 bind:currentPizza
                 bind:pizzaData
+                bind:shoppingCart
                 {id}
             />
         {/each}

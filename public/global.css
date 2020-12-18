@@ -14,6 +14,10 @@ body {
 	font-family: "Montserrat";
 }
 
+input {
+	border: none;
+}
+
 .btn {
 	border: 1px solid #0085ff;
 	border-radius: 5px;
