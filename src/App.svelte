@@ -73,7 +73,7 @@ window.ADDITIONAL_INGREDIENTS = [
 	},
 	{
 		"name":  "Salsicce",
-		"image": "https://www.ilm.it/it/wp-content/uploads/sites/6/salsiccia.jpg"
+		"image": "https://www.macelleriasalvi.it/wp-content/uploads/2020/03/salsicce-3-1.jpg"
 	},
 	{
 		"name":  "Acciughe",
@@ -92,13 +92,11 @@ let dialogsState = {
 	"additionalIngredients": false
 };
 
-window.shoppingCart = [];
-
 let searchResults = [];
 
 let currentPizza = null;
 
-let showAdditionalIngredientsDialog = false;
+window.shoppingCart = [];
 
 let additionalPrice = 0;
 
@@ -126,9 +124,12 @@ let pizzaCalcPrice = function (pizzaId) {
 </svelte:head>
 
 <main>
-	<SearchArea bind:dialogsState />
+	<SearchArea bind:currentPizza bind:dialogsState />
 	{#if dialogsState.additionalIngredients}
-		<AdditionalIngredientsDialog onClose={()=>{dialogsState.additionalIngredients = false;}} />
+		<AdditionalIngredientsDialog
+			onClose={()=>{dialogsState.additionalIngredients = false;}}
+			{currentPizza}
+		/>
 	{/if}
 </main>
 

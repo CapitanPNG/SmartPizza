@@ -6,7 +6,15 @@ import NumericTextfield from './NumericTextfield.svelte';
 export let id;
 export let dialogsState;
 
+let currentPizza = null;
+
 let quantity = 1;
+
+let openAdditionalIngredientsDialog = function () {
+    currentPizza = id;
+
+    dialogsState.additionalIngredients = true;
+}
 
 </script>
 
@@ -28,9 +36,7 @@ let quantity = 1;
         </div>
         <div class="pizza-buttons">
             <Button>
-                <div class="btn btn-color btn-add-ingredients"
-                    on:click={()=>{dialogsState.additionalIngredients = true;}}
-                >
+                <div class="btn btn-color btn-add-ingredients"on:click={openAdditionalIngredientsDialog}>
                     Aggiungi ingredienti
                 </div>
             </Button>
