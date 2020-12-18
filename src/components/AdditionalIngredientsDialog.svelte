@@ -1,15 +1,18 @@
 <script>
 import { onMount } from "svelte";
 
+import Dialog from './Dialog.svelte';
+
 import CheckboxAdditionalIngredient from "./CheckboxAdditionalIngredient.svelte";
-import SWGButton from './SWGButton.svelte';
-import SWGDialog from './SWGDialog.svelte';
+import Button from './Button.svelte';
+
+export let onClose = ()=>{};
 
 export let currentPizza;
 
 export let additionalPrice;
 
-onMount(function(e) {
+/*onMount(function(e) {
     window.numSelectedAdditionalIngredients = 0;
     additionalPrice = 0;
 
@@ -26,11 +29,11 @@ onMount(function(e) {
             additionalPrice = window.numSelectedAdditionalIngredients * window.ADDITIONAL_INGREDIENT_PRICE;
         }
     });
-});
+});*/
 
 </script>
 
-<SWGDialog object="pizza.additional-ingredients-dialog">
+<Dialog {onClose} >
     <div slot="header" class="dialog-header">
         <div class="pizza-name">
             Pizza {currentPizza}
@@ -49,14 +52,14 @@ onMount(function(e) {
             {/each}
         </div>
         <div class="controls-box">
-            <SWGButton object="pizza.additional-ingredients-save">
+            <Button>
                 <div class="btn btn-save">
                     Salva
                 </div>
-            </SWGButton>
+            </Button>
         </div>
     </div>
-</SWGDialog>
+</Dialog>
 
 <style>
 

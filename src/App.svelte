@@ -1,6 +1,7 @@
 <script>
 
 import { onMount } from 'svelte';
+import AdditionalIngredientsDialog from './components/AdditionalIngredientsDialog.svelte';
 
 import SearchArea from './components/SearchArea.svelte';
 
@@ -87,6 +88,10 @@ window.ADDITIONAL_INGREDIENTS = [
 window.MAX_SELECTED_ADDITIONAL_INGREDIENTS = 3;
 window.ADDITIONAL_INGREDIENT_PRICE = 0.50;
 
+let dialogs = {
+	"additionalIngredients": false
+};
+
 window.shoppingCart = [];
 
 let searchResults = [];
@@ -122,6 +127,9 @@ let pizzaCalcPrice = function (pizzaId) {
 
 <main>
 	<SearchArea />
+	{#if dialogs.additionalIngredients}
+		<AdditionalIngredientsDialog onClose={()=>{dialogs.additionalIngredients = false;}} />
+	{/if}
 </main>
 
 <style>

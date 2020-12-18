@@ -3,11 +3,13 @@
 import Button from './Button.svelte';
 import NumericTextfield from './NumericTextfield.svelte';
 
-export let id = null;
+export let id   = null;
+
+let quantity = 1;
 
 </script>
 
-<div class="search-result pizza-item" key={id}>
+<div class="search-result pizza-item">
     <div class="pizza-image-box">
         <div class="pizza-image">
             <img src={window.PIZZA[id].image} alt={"Pizza " + id}>
@@ -18,10 +20,10 @@ export let id = null;
     </div>
     <div class="pizza-controls">
         <div class="pizza-price">
-            {window.PIZZA[id].temp.price} €
+            {window.PIZZA[id].price} €
         </div>
         <div class="pizza-qty">
-            <NumericTextfield label="Quantità" minValue=1 value=1 on:swg-change={()=>{}} />
+            <NumericTextfield label="Quantità" minValue=1 value={quantity} on:swg-change={()=>{}} />
         </div>
         <div class="pizza-buttons">
             <Button>
