@@ -169,13 +169,4 @@ main {
 	background-color: #ffffff;
 }
 
-.box-right {
-	width: 67%;
-	height: 100%;
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: start;
-}
-
 </style>

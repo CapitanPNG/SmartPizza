@@ -20,10 +20,14 @@ export let currentPizza = null;
 
 <style>
 
-.pizza-details {
-    width: 96%;
+.result-description {
     height: 100%;
     padding: 30px;
+    flex-grow: 1;
+}
+
+.pizza-details {
+   
 }
 
 .pizza-image-box {

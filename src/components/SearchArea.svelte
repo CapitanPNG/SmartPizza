@@ -37,8 +37,6 @@ let searchResults = [];
 	align-items: center;
 	background-color: inherit;
     border-right: 1px solid #0085ff;
-    
-    width: 45%;
 }
 
 </style>
