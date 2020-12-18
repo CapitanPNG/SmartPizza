@@ -50,7 +50,7 @@ export let id = null;
 }
 
 .pizza-image-box {
-    width: 50%;
+    width: 200px;
     height: 220px;
     position: relative;
     border: 1px solid #0084ff;
@@ -65,10 +65,11 @@ export let id = null;
     border-radius: inherit;
 }
 
-.pizza-image > img {
+img {
     width: 100%;
     height: 100%;
     border-radius: inherit;
+    object-fit: cover;
 }
 
 .pizza-name {
@@ -82,9 +83,9 @@ export let id = null;
 }
 
 .pizza-controls {
-    width: 50%;
     margin-left: 8px;
     align-self: end;
+    flex-grow: 1;
 }
 
 .pizza-price {

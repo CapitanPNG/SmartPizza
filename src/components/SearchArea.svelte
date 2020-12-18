@@ -29,7 +29,7 @@ let searchResults = [];
 	background-color: inherit;
     border-right: 1px solid #0085ff;
     
-    width: 40%;
+    width: 45%;
 }
 
 </style>
