@@ -109,6 +109,8 @@ let setDefaultsPizzaData = function () {
 	}
 };
 
+let numSelectedAdditionalIngredients = 0;
+
 window.shoppingCart = [];
 
 let additionalPrice = 0;
@@ -146,6 +148,7 @@ onMount(function(e) {
 		<AdditionalIngredientsDialog
 			onClose={()=>{dialogsState.additionalIngredients = false;}}
 			{currentPizza}
+			{numSelectedAdditionalIngredients}
 		/>
 	{/if}
 </main>

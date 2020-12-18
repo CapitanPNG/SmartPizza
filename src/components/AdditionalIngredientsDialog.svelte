@@ -10,8 +10,11 @@ import Button from './Button.svelte';
 export let onClose = ()=>{};
 
 export let currentPizza;
+export let numSelectedAdditionalIngredients;
 
-export let additionalPrice;
+let additionalPrice = 0;
+
+$: additionalPrice = numSelectedAdditionalIngredients * window.ADDITIONAL_INGREDIENT_PRICE;
 
 /*onMount(function(e) {
     window.numSelectedAdditionalIngredients = 0;
@@ -49,7 +52,7 @@ export let additionalPrice;
         </div>
         <div class="options">
             {#each window.ADDITIONAL_INGREDIENTS as data}
-                <AdditionalIngredientCheckbox {data} />
+                <AdditionalIngredientCheckbox {data} bind:numSelectedAdditionalIngredients />
             {/each}
         </div>
         <div class="controls-box">

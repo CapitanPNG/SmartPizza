@@ -5,14 +5,38 @@ import { onMount } from 'svelte';
 import Checkbox from './Checkbox.svelte';
 
 export let data;
+export let numSelectedAdditionalIngredients;
 
 let checked = false;
 let value   = data.name;
 
+let callbacks = {
+    "change": function (e) {
+        //console.debug(e.detail);
+
+        let data = e.detail;
+
+        if(data.checked) {
+            numSelectedAdditionalIngredients++;
+        } else {
+            numSelectedAdditionalIngredients--;
+        }
+
+        if(numSelectedAdditionalIngredients > window.MAX_SELECTED_ADDITIONAL_INGREDIENTS) {
+            checked = true;
+            checked = false;
+
+            numSelectedAdditionalIngredients--;
+        } else {
+            console.debug("Num-Selected-Additional-Ingredients: " + numSelectedAdditionalIngredients);
+        }
+    }
+};
+
 </script>
 
 <div class="additional-ingredient-checkbox">
-    <Checkbox {checked} {value}>
+    <Checkbox {checked} {value} on:swg-change={callbacks.change}>
         <div slot="body" class="cb-body">
             <div class="image-box">
                 <img src={data.image} alt={data.name}>
@@ -23,23 +47,6 @@ let value   = data.name;
         </div>
     </Checkbox>
 </div>
-
-<!--<label class="additional-ingredient">
-    <div class="image-box">
-        <img src={additionalIngredient.image} alt={additionalIngredient.name}>
-    </div>
-    <div class="label">
-        <div class="text">
-            {additionalIngredient.name}
-        </div>
-        <div class="checkbox">
-            <input type="checkbox" class="controller" bind:this={controller} value={additionalIngredient.name}>
-            <div class="checkbox-symbol">
-                ✓
-            </div>
-        </div>
-    </div>
-</label>-->
 
 <style>
 
