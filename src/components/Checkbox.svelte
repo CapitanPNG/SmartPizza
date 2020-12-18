@@ -9,13 +9,14 @@ export let value   = "";
     <div class="checkbox-body">
         <slot name="body"></slot>
     </div>
-    <input type="checkbox" bind:checked bind:value>
     <div class="checkbox-label">
-        <div class="checkbox-emulator">
-            <slot name="emulator">
-                  ✓
-            </slot>
-         </div>
+        <slot name="label"></slot>
+    </div>
+    <input type="checkbox" bind:checked bind:value>
+    <div class="checkbox-emulator">
+        <slot name="emulator">
+            ✓
+        </slot>
     </div>
 </label>
 

@@ -18,6 +18,11 @@ let value   = data.name;
                 <img src={data.image} alt={data.name}>
             </div>
         </div>
+        <div slot="label">
+            <div class="text">
+                {data.name}
+            </div>
+        </div>
     </Checkbox>
 </div>
 
@@ -50,6 +55,12 @@ let value   = data.name;
     cursor: pointer;
 }
 
+.additional-ingredient-checkbox :global(.checkbox) {
+    height: 100%;
+    background-color: #80c1ff;
+    border-bottom-right-radius: 5px;
+}
+
 .image-box {
     width: 100%;
     height: 100%;
@@ -78,18 +89,25 @@ img {
     font-size: 12px;
 }
 
+.additional-ingredient-checkbox :global(.checkbox-label) {
+    width: 100%;
+    height: 26px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: #ffffff;
+    background-color: transparent;
+    font-weight: 400;
+    font-size: 12px;
+}
+
 .text {
     /*padding: 4px 20px;*/
     height: 100%;
     background-color: #0084ff;
     border-bottom-left-radius: 5px;
     flex-grow: 1;
-}
-
-.checkbox {
-    height: 100%;
-    background-color: #80c1ff;
-    border-bottom-right-radius: 5px;
 }
 
 .checkbox-symbol {
