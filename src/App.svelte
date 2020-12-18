@@ -3,8 +3,8 @@
 import { onMount } from 'svelte';
 
 import AdditionalIngredientsDialog from './components/AdditionalIngredientsDialog.svelte';
-
 import SearchArea from './components/SearchArea.svelte';
+import ResultDescription from './components/ResultDescription.svelte';
 
 window.PIZZA = {
 	"Margherita": {
@@ -144,6 +144,8 @@ onMount(function(e) {
 
 <main>
 	<SearchArea bind:currentPizza bind:dialogsState bind:pizzaData />
+	<ResultDescription {currentPizza} />
+
 	{#if dialogsState.additionalIngredients}
 		<AdditionalIngredientsDialog
 			onClose={()=>{dialogsState.additionalIngredients = false;}}

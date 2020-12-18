@@ -18,6 +18,10 @@ $: pizzaData[id].price =
     pizzaData[id].quantity
 ;
 
+let showPizzaDetails = function () {
+    currentPizza = id;
+};
+
 let openAdditionalIngredientsDialog = function () {
     currentPizza = id;
 
@@ -27,7 +31,7 @@ let openAdditionalIngredientsDialog = function () {
 </script>
 
 <div class="search-result pizza-item">
-    <div class="pizza-image-box">
+    <div class="pizza-image-box" on:click={showPizzaDetails}>
         <div class="pizza-image">
             <img src={window.PIZZA[id].image} alt={"Pizza " + id}>
         </div>
