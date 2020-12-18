@@ -89,6 +89,14 @@ window.ADDITIONAL_INGREDIENTS = [
 window.MAX_SELECTED_ADDITIONAL_INGREDIENTS = 3;
 window.ADDITIONAL_INGREDIENT_PRICE = 0.50;
 
+window.currencyFormatter = new Intl.NumberFormat(
+    "it-IT",
+    {
+        "style"   : "currency",
+        "currency": "EUR"
+    }
+);
+
 let dialogsState = {
 	"additionalIngredients": false
 };

@@ -6,7 +6,6 @@ import Dialog from './Dialog.svelte';
 
 import AdditionalIngredientCheckbox from "./AdditionalIngredientCheckbox.svelte";
 import Button from './Button.svelte';
-import { element } from 'svelte/internal';
 
 export let onClose = ()=>{};
 
@@ -19,7 +18,21 @@ let additionalPrice = 0;
 
 let options = null;
 
-$: additionalPrice = numSelectedAdditionalIngredients * window.ADDITIONAL_INGREDIENT_PRICE;
+let formatter = new Intl.NumberFormat(
+    "it-IT",
+    {
+        "style"   : "currency",
+        "currency": "EUR"
+    }
+);
+
+$: additionalPrice =
+    window.currencyFormatter.format(
+        (
+            numSelectedAdditionalIngredients * window.ADDITIONAL_INGREDIENT_PRICE
+        )
+    )
+;
 
 let saveAdditionalIngredients = function () {
     pizzaData[currentPizza].additionalIngredients = [];
@@ -72,7 +85,7 @@ onMount(function(e) {
             Pizza {currentPizza}
         </div>
         <div class="additional-price">
-            Costo aggiuntivo unitario di {additionalPrice} €
+            Costo aggiuntivo unitario di {additionalPrice}
         </div>
     </div>
     <div slot="body" class="dialog-body">
@@ -118,7 +131,7 @@ onMount(function(e) {
 }
 
 .additional-price {
-    width: 248px;
+    width: 268px;
     padding: 10px 20px;
     margin-left: 30px;
     font-weight: 500;

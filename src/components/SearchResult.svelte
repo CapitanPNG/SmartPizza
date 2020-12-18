@@ -9,13 +9,17 @@ export let pizzaData;
 export let id;
 
 $: pizzaData[id].price =
-    (
-        parseFloat(window.PIZZA[id].price)
-        +
-        pizzaData[id].additionalIngredients.length * window.ADDITIONAL_INGREDIENT_PRICE
+    window.currencyFormatter.format(
+        (
+            (
+                parseFloat(window.PIZZA[id].price)
+                +
+                pizzaData[id].additionalIngredients.length * window.ADDITIONAL_INGREDIENT_PRICE
+            )
+            *
+            pizzaData[id].quantity
+        )
     )
-    *
-    pizzaData[id].quantity
 ;
 
 let showPizzaDetails = function () {
@@ -41,7 +45,7 @@ let openAdditionalIngredientsDialog = function () {
     </div>
     <div class="pizza-controls">
         <div class="pizza-price">
-            {pizzaData[id].price} €
+            {pizzaData[id].price}
         </div>
         <div class="pizza-quantity">
             <NumericTextfield label="Quantità" minValue=1 bind:value={pizzaData[id].quantity} />
