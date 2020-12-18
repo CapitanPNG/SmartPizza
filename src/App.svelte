@@ -88,7 +88,7 @@ window.ADDITIONAL_INGREDIENTS = [
 window.MAX_SELECTED_ADDITIONAL_INGREDIENTS = 3;
 window.ADDITIONAL_INGREDIENT_PRICE = 0.50;
 
-let dialogs = {
+let dialogsState = {
 	"additionalIngredients": false
 };
 
@@ -126,9 +126,9 @@ let pizzaCalcPrice = function (pizzaId) {
 </svelte:head>
 
 <main>
-	<SearchArea />
-	{#if dialogs.additionalIngredients}
-		<AdditionalIngredientsDialog onClose={()=>{dialogs.additionalIngredients = false;}} />
+	<SearchArea bind:dialogsState />
+	{#if dialogsState.additionalIngredients}
+		<AdditionalIngredientsDialog onClose={()=>{dialogsState.additionalIngredients = false;}} />
 	{/if}
 </main>
 

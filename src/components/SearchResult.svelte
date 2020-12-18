@@ -3,7 +3,8 @@
 import Button from './Button.svelte';
 import NumericTextfield from './NumericTextfield.svelte';
 
-export let id   = null;
+export let id;
+export let dialogsState;
 
 let quantity = 1;
 
@@ -27,12 +28,14 @@ let quantity = 1;
         </div>
         <div class="pizza-buttons">
             <Button>
-                <div class="btn btn-color btn-add-ingredients">
+                <div class="btn btn-color btn-add-ingredients"
+                    on:click={()=>{dialogsState.additionalIngredients = true;}}
+                >
                     Aggiungi ingredienti
                 </div>
             </Button>
             <Button>
-                <div class="btn btn-color-full btn-add-to-cart">
+                <div class="btn btn-color-full btn-add-to-cart" on:click={()=>{}}>
                     Aggiungi al carrello
                 </div>
             </Button>
@@ -113,7 +116,7 @@ img {
 }
 
 .btn-add-ingredients {
-    
+
 }
 
 .btn-add-to-cart {

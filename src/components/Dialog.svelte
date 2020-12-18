@@ -11,21 +11,7 @@ let callbacks = {
         //console.debug(e);
 
         if(e.target === this) {
-            onClose();
-
-            let data = {};
-
-            dispatch(
-                "swg-dialog-before-closing",
-                data
-            );
-
-            this.remove();
-
-            dispatch(
-                "swg-dialog-closed",
-                data
-            );
+            onClose(e);
         }
     }
 };

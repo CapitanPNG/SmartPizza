@@ -6,13 +6,15 @@ import SearchResult from './SearchResult.svelte';
 
 let searchResults = [];
 
+export let dialogsState;
+
 </script>
 
 <div class="search-area">
     <SearchBar bind:searchResults />
     <SearchResults>
         {#each searchResults as id}
-            <SearchResult {id} />
+            <SearchResult {id} bind:dialogsState />
         {/each}
     </SearchResults>
 </div>
