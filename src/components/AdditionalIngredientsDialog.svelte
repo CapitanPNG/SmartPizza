@@ -93,6 +93,7 @@ export let additionalPrice;
 }
 
 .dialog-body {
+    width: 100%;
     padding: 6px;
     background-color: #ffffff;
     border-bottom-left-radius: 5px;
