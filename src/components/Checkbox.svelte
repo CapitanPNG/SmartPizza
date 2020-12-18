@@ -9,21 +9,25 @@ export let value   = "";
     <div class="checkbox-body">
         <slot name="body"></slot>
     </div>
-    <div class="checkbox-label">
-        <slot name="label"></slot>
-    </div>
     <input type="checkbox" bind:checked bind:value>
-    <div class="checkbox-emulator">
-        <slot name="emulator">
-            ✓
-        </slot>
+    <div class="checkbox-footer">
+        <div class="checkbox-label">
+            <slot name="label"></slot>
+        </div>
+        <div class="checkbox-emulator-box">
+            <div class="checkbox-emulator">
+                <slot name="emulator">
+                    ✓
+                </slot>
+            </div>
+        </div>
     </div>
 </label>
 
 <style>
 
 .checkbox {
-
+    cursor: pointer;
 }
 
 .checkbox-body {
@@ -34,15 +38,19 @@ input {
     display: none;
 }
 
+.checkbox-footer {
+
+}
+
 .checkbox-emulator {
 
 }
 
-input:checked + .checkbox-emulator {
+input:checked + .checkbox-footer .checkbox-emulator {
     visibility: visible;
 }
 
-input:not(:checked) + .checkbox-emulator {
+input:not(:checked) + .checkbox-footer .checkbox-emulator {
     visibility: hidden;
 }
 
