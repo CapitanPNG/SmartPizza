@@ -147,7 +147,9 @@ onMount(function(e) {
 	{#if dialogsState.additionalIngredients}
 		<AdditionalIngredientsDialog
 			onClose={()=>{dialogsState.additionalIngredients = false;}}
+			bind:dialogsState
 			{currentPizza}
+			{pizzaData}
 			{numSelectedAdditionalIngredients}
 		/>
 	{/if}

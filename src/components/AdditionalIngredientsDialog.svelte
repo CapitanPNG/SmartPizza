@@ -1,7 +1,5 @@
 <script>
 
-import { onMount } from 'svelte';
-
 import Dialog from './Dialog.svelte';
 
 import AdditionalIngredientCheckbox from "./AdditionalIngredientCheckbox.svelte";
@@ -9,31 +7,31 @@ import Button from './Button.svelte';
 
 export let onClose = ()=>{};
 
+export let dialogsState;
 export let currentPizza;
+export let pizzaData;
 export let numSelectedAdditionalIngredients;
 
 let additionalPrice = 0;
 
+let options = null;
+
 $: additionalPrice = numSelectedAdditionalIngredients * window.ADDITIONAL_INGREDIENT_PRICE;
 
-/*onMount(function(e) {
-    window.numSelectedAdditionalIngredients = 0;
-    additionalPrice = 0;
+let saveAdditionalIngredients = function () {
+    pizzaData[currentPizza].additionalIngredients = [];
 
-    document.querySelectorAll(".custom-ingredients-dialog-box input").forEach(function(input) {
-        if(window.selectedAdditionalIngredients[currentPizza]) {
-            for(let i = 0; i < window.selectedAdditionalIngredients[currentPizza].length; i++) {
-                if(input.value === window.selectedAdditionalIngredients[currentPizza][i]) {
-                    input.checked = true;
-
-                    window.numSelectedAdditionalIngredients++;
-                }
-            }
-
-            additionalPrice = window.numSelectedAdditionalIngredients * window.ADDITIONAL_INGREDIENT_PRICE;
+    options.querySelectorAll("input").forEach(function(element) {
+        if(element.checked) {
+            pizzaData[currentPizza].additionalIngredients.push(element.value);
         }
     });
-});*/
+
+    dialogsState.additionalIngredients = false;
+
+    console.debug("Additional-Ingredients-Saved: ");
+    console.debug(pizzaData[currentPizza].additionalIngredients);
+};
 
 </script>
 
@@ -50,14 +48,14 @@ $: additionalPrice = numSelectedAdditionalIngredients * window.ADDITIONAL_INGRED
         <div class="hint">
             Seleziona fino a {window.MAX_SELECTED_ADDITIONAL_INGREDIENTS} ingredienti da aggiungere alla tua pizza
         </div>
-        <div class="options">
+        <div class="options" bind:this={options}>
             {#each window.ADDITIONAL_INGREDIENTS as data}
                 <AdditionalIngredientCheckbox {data} bind:numSelectedAdditionalIngredients />
             {/each}
         </div>
         <div class="controls-box">
             <Button>
-                <div class="btn btn-save">
+                <div class="btn btn-save" on:click={saveAdditionalIngredients}>
                     Salva
                 </div>
             </Button>
