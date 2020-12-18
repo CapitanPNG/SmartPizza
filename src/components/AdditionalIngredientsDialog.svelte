@@ -43,8 +43,10 @@ onMount(function(e) {
         for(let i = 0; i < pizzaData[currentPizza].additionalIngredients.length; i++) {
             let value = pizzaData[currentPizza].additionalIngredients[i];
 
-            if(element.value === value) {
-                element.checked = element.value === value;
+            let checked = (element.value === value);
+
+            if(checked) {
+                element.checked = checked;
 
                 numSelectedAdditionalIngredients++;
             }
