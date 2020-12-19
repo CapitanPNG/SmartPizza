@@ -12,13 +12,17 @@ export let shoppingCart;
 $: pizzaData[id].price =
     window.currencyFormatter.format(
         (
+            pizzaData[id].quantity
+            *
             (
                 parseFloat(window.PIZZA[id].price)
                 +
-                pizzaData[id].additionalIngredients.length * window.ADDITIONAL_INGREDIENT_PRICE
+                (
+                    pizzaData[id].additionalIngredients.length
+                    *
+                    window.ADDITIONAL_INGREDIENT_PRICE
+                )
             )
-            *
-            pizzaData[id].quantity
         )
     )
 ;
@@ -34,6 +38,8 @@ let openAdditionalIngredientsDialog = function () {
 }
 
 let addToCart = function () {
+    showPizzaDetails();
+
     let identifier = {
         "name" : id,
         "price": window.currencyFormatter.format(parseFloat(window.PIZZA[id].price))
@@ -70,7 +76,7 @@ let addToCart = function () {
     ;
 
     pizzaData[id].quantity = 1;
-    
+
     pizzaData[id].additionalIngredients = [];
 
     console.debug("Shopping-Cart: ");

@@ -7,6 +7,7 @@ import CartDialog from './components/CartDialog.svelte';
 import SearchArea from './components/SearchArea.svelte';
 import ResultDescription from './components/ResultDescription.svelte';
 import Button from './components/Button.svelte';
+import CheckoutMessage from './components/CheckoutMessage.svelte';
 
 window.PIZZA = {
 	"Margherita": {
@@ -124,6 +125,8 @@ let numSelectedAdditionalIngredients = 0;
 
 let shoppingCart = [];
 
+let checkoutDone = false;
+
 onMount(function(e) {
 	setDefaultsPizzaData();
 });
@@ -170,7 +173,16 @@ onMount(function(e) {
 	{#if dialogsState.cart}
 		<CartDialog
 			onClose={()=>{dialogsState.cart = false;}}
+			bind:dialogsState
+			bind:checkoutDone
 			{shoppingCart}
+		/>
+	{/if}
+
+	{#if checkoutDone}
+		<CheckoutMessage
+			bind:shoppingCart
+			bind:checkoutDone
 		/>
 	{/if}
 </main>

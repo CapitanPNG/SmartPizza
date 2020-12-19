@@ -6,7 +6,17 @@ import Textfield from './Textfield.svelte';
 import CartItem from './CartItem.svelte';
 
 export let onClose = ()=>{};
+export let dialogsState;
+export let checkoutDone;
 export let shoppingCart;
+
+let checkoutTotalPrice;
+
+let checkout = function () {
+    dialogsState.cart = false;
+
+    checkoutDone = true;
+};
 
 </script>
 
@@ -38,20 +48,25 @@ export let shoppingCart;
                     </select>
                 </div>
                 <div class="cart-list">
-                    {#each shoppingCart as item}
-                        <CartItem {item}/>
+                    {#each shoppingCart as item, index}
+                        <CartItem
+                            bind:checkoutTotalPrice
+                            {item}
+                            {index}
+                            {shoppingCart}
+                        />
                     {/each}
 
                     <div class="checkout-total-price-box">
                         <div class="checkout-total-price">
-                            Total: @TOTAL_PRICE
+                            Total: {checkoutTotalPrice}
                         </div>
                     </div>
                 </div>
             </div>
             <div class="cart-footer">
                 <Button>
-                    <div class="btn btn-checkout">
+                    <div class="btn btn-checkout" on:click={checkout}>
                         Procedi all'acquisto
                     </div>
                 </Button>

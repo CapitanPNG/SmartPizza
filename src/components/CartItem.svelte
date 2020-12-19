@@ -1,8 +1,74 @@
 <script>
+import { binding_callbacks } from 'svelte/internal';
+
 
 import NumericTextfield from './NumericTextfield.svelte';
 
 export let item;
+export let index;
+export let shoppingCart;
+export let checkoutTotalPrice;
+
+let getCheckoutTotalPrice = function () {
+    let result = 0;
+
+    for(let i = 0; i < shoppingCart.length; i++) {
+        let value = shoppingCart[i];
+
+        let price = value.totalPrice.substring(
+            0,
+            4
+        );
+        
+        price = price.replace(
+            /\,/,
+            "."
+        );
+
+        price = parseFloat(price);
+
+        result += price;
+    }
+
+    return window.currencyFormatter.format(result);
+};
+
+$: shoppingCart[index].totalPrice =
+    window.currencyFormatter.format(
+        shoppingCart[index].quantity
+        *
+        (
+            parseFloat(window.PIZZA[shoppingCart[index].id.name].price)
+            +
+            (
+                shoppingCart[index].additionalIngredients.length
+                *
+                window.ADDITIONAL_INGREDIENT_PRICE
+            )
+        )
+    )
+;
+
+$: checkoutTotalPrice = getCheckoutTotalPrice();
+
+let callbacks = {
+    "change": function (e) {
+        shoppingCart[index].quantity = e.detail.value;
+        
+        item.quantity = shoppingCart[index].quantity;
+
+        item = item;
+
+        shoppingCart = shoppingCart;
+
+        window.setTimeout(
+            function() {
+                checkoutTotalPrice = getCheckoutTotalPrice();
+            },
+            500
+        );
+    }
+};
 
 </script>
 
@@ -20,7 +86,9 @@ export let item;
         {/each}
     </div>
     <div class="pizza-quantity">
-        <NumericTextfield label="Quantità" minValue=1 value={item.quantity} />
+        <NumericTextfield label="Quantità" minValue=1 bind:value={item.quantity}
+            on:swg-change={callbacks.change}
+        />
     </div>
     <div class="pizza-total-price-box">
         per un costo di 
