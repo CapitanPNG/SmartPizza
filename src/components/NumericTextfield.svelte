@@ -209,6 +209,7 @@ onMount(function(e) {
 }
 
 .box {
+    margin: 0 8px;
     display: flex;
     flex-direction: row;
     justify-content: center;

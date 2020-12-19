@@ -61,6 +61,18 @@ let addToCart = function () {
 
     shoppingCart = shoppingCart;
 
+    pizzaData[id].price =
+        window.currencyFormatter.format(
+            parseFloat(
+                window.PIZZA[id].price
+            )
+        )
+    ;
+
+    pizzaData[id].quantity = 1;
+    
+    pizzaData[id].additionalIngredients = [];
+
     console.debug("Shopping-Cart: ");
     console.debug(shoppingCart);
 };

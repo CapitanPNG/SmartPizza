@@ -41,10 +41,20 @@ export let shoppingCart;
                     {#each shoppingCart as item}
                         <CartItem {item}/>
                     {/each}
+
+                    <div class="checkout-total-price-box">
+                        <div class="checkout-total-price">
+                            Total: @TOTAL_PRICE
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="cart-footer">
-                FOOTER
+                <Button>
+                    <div class="btn btn-checkout">
+                        Procedi all'acquisto
+                    </div>
+                </Button>
             </div>
         </div>
     </Dialog>
@@ -86,6 +96,12 @@ export let shoppingCart;
     font-size: 18px;
 }
 
+.btn-cart-quit {
+    width: 36px;
+    height: 36px;
+    text-align: center;
+}
+
 .dialog-body {
     width: 100%;
     padding: 0;
@@ -109,6 +125,7 @@ export let shoppingCart;
 
 select {
     width: 100%;
+    margin-top: 16px;
 }
 
 .cart-list {
@@ -116,8 +133,35 @@ select {
     flex-grow: 1;
 }
 
-.cart-footer {
+.checkout-total-price-box {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
 
+.checkout-total-price {
+    padding: 8px 14px;
+    display: table;
+    color: #ffffff;
+    background-color: #0085ff;
+    font-weight: 500;
+    font-size: 14px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.cart-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+    color: #ffffff;
+    background-color: #0085ff;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .btn {
@@ -128,6 +172,11 @@ select {
     font-weight: 500;
     font-size: 14px;
     cursor: pointer;
+}
+
+.btn-checkout {
+    margin: 4px;
+    display: table;
 }
 
 </style>

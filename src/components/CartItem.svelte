@@ -14,7 +14,7 @@ export let item;
         {#each item.additionalIngredients as additionalIngredient}
             <div class="pizza-additional-ingredient-box">
                 <div class="pizza-additional-ingredient">
-                    {additionalIngredient.name} ( {additionalIngredient.price} )
+                    {additionalIngredient.name} ( + {additionalIngredient.price} )
                 </div>
             </div>
         {/each}
