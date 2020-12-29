@@ -12,10 +12,8 @@ export let data;
 let checked = false;
 let value   = data.name;
 
-$: console.debug(numSelectedAdditionalIngredients);
-
 let callbacks = {
-    "change": function (e) {
+    "swg-change": function (e) {
         //console.debug(e.detail);
 
         /*let data = e.detail;
@@ -35,7 +33,30 @@ let callbacks = {
             console.debug("Num-Selected-Additional-Ingredients: " + numSelectedAdditionalIngredients);
         }*/
 
-        // ahci
+        switch(checked) {
+            case false:
+                numSelectedAdditionalIngredients--;
+
+                if(numSelectedAdditionalIngredients < 0) {
+                    numSelectedAdditionalIngredients = 0;
+                }
+            break;
+            case true:
+                numSelectedAdditionalIngredients++;
+
+                if(
+                    numSelectedAdditionalIngredients
+                    >
+                    window.MAX_SELECTED_ADDITIONAL_INGREDIENTS
+                ) {
+                    numSelectedAdditionalIngredients
+                    =
+                    window.MAX_SELECTED_ADDITIONAL_INGREDIENTS;
+
+                    checked = false;
+                }
+            break;
+        }
     }
 };
 
@@ -45,19 +66,6 @@ onMount(function(e) {
             checked = true;
         }
     }
-
-    switch(checked) {
-        case false:
-            numSelectedAdditionalIngredients--;
-
-            if(numSelectedAdditionalIngredients < 0) {
-                numSelectedAdditionalIngredients = 0;
-            }
-        break;
-        case true:
-            numSelectedAdditionalIngredients++;
-        break;
-    }
 });
 
 </script>
@@ -66,7 +74,8 @@ onMount(function(e) {
     <Checkbox
         bind:checked
         {value}
-        on:swg-change={callbacks.change}
+        on:swg-input={callbacks["swg-input"]}
+        on:swg-change={callbacks["swg-change"]}
     >
         <div slot="body" class="cb-body">
             <div class="image-box">

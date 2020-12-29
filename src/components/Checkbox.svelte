@@ -28,7 +28,10 @@ let callbacks = {
     <div class="checkbox-body">
         <slot name="body"></slot>
     </div>
-    <input type="checkbox" bind:checked bind:value
+    <input type="checkbox"
+        bind:checked
+        bind:value
+
         on:change={callbacks.change}
     >
     <div class="checkbox-footer">

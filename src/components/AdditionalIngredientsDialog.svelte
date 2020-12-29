@@ -59,14 +59,12 @@ let saveAdditionalIngredients = function () {
     console.debug(pizzaData[currentPizza].additionalIngredients);
 };
 
-$: {
+onMount(function(e) {
     numSelectedAdditionalIngredients
     =
     pizzaData[currentPizza].additionalIngredients.length
     ;
-};
 
-onMount(function(e) {
     /*options.querySelectorAll("input").forEach(function(element) {
         for(let i = 0; i < pizzaData[currentPizza].additionalIngredients.length; i++) {
             let value = pizzaData[currentPizza].additionalIngredients[i];
