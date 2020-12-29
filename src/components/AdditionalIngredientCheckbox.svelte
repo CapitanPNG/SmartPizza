@@ -1,18 +1,24 @@
 <script>
 
+import { onMount } from 'svelte';
+
 import Checkbox from './Checkbox.svelte';
 
 export let numSelectedAdditionalIngredients;
+export let currentPizza;
+export let pizzaData;
 export let data;
 
 let checked = false;
 let value   = data.name;
 
+$: console.debug(numSelectedAdditionalIngredients);
+
 let callbacks = {
     "change": function (e) {
         //console.debug(e.detail);
 
-        let data = e.detail;
+        /*let data = e.detail;
 
         if(data.checked) {
             numSelectedAdditionalIngredients++;
@@ -27,14 +33,41 @@ let callbacks = {
             numSelectedAdditionalIngredients--;
         } else {
             console.debug("Num-Selected-Additional-Ingredients: " + numSelectedAdditionalIngredients);
-        }
+        }*/
+
+        // ahci
     }
 };
+
+onMount(function(e) {
+    for(let i = 0; i < pizzaData[currentPizza].additionalIngredients.length; i++) {
+        if(pizzaData[currentPizza].additionalIngredients[i] === value) {
+            checked = true;
+        }
+    }
+
+    switch(checked) {
+        case false:
+            numSelectedAdditionalIngredients--;
+
+            if(numSelectedAdditionalIngredients < 0) {
+                numSelectedAdditionalIngredients = 0;
+            }
+        break;
+        case true:
+            numSelectedAdditionalIngredients++;
+        break;
+    }
+});
 
 </script>
 
 <div class="additional-ingredient-checkbox">
-    <Checkbox {checked} {value} on:swg-change={callbacks.change}>
+    <Checkbox
+        bind:checked
+        {value}
+        on:swg-change={callbacks.change}
+    >
         <div slot="body" class="cb-body">
             <div class="image-box">
                 <img src={data.image} alt={data.name}>

@@ -6,7 +6,10 @@ export let value       = "";
 </script>
 
 <div class="textfield">
-    <input type="text" {placeholder} bind:value>
+    <input type="text"
+        bind:value
+        {placeholder}
+    >
 </div>
 
 <style>

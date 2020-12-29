@@ -108,66 +108,7 @@ let callbacks = {
 let controller = null;
 
 onMount(function(e) {
-    controller.getData = function (key) {
-        let messagePrefix = "\n\nCannot get data:\n\n";
-        let message = messagePrefix;
-
-        switch(key) {
-            case "label":
-                return label;
-            break;
-            case "value":
-                return value;
-            break;
-            case "step":
-                return step;
-            break;
-            case "minValue":
-                return minValue;
-            break;
-            case "maxValue":
-                return maxValue;
-            break;
-            default:
-                message += "\nArgument 'key':";
-                message += "\nValue is not recognized";
-                message += "\n\n";
-
-                throw new Error(message);
-        }
-    }
-
-    controller.setData = function (
-        key,
-        val
-    ) {
-        let messagePrefix = "\n\nCannot set data:\n\n";
-        let message = messagePrefix;
-
-        switch(key) {
-            case "label":
-                label = val;
-            break;
-            case "value":
-                value = val;
-            break;
-            case "step":
-                step = val;
-            break;
-            case "minValue":
-                minValue = val;
-            break;
-            case "maxValue":
-                maxValue = val;
-            break;
-            default:
-                message += "\nArgument 'key':";
-                message += "\nValue is not recognized";
-                message += "\n\n";
-
-                throw new Error(message);
-        }
-    }
+    
 });
 
 </script>

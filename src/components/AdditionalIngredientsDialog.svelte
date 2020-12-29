@@ -59,10 +59,15 @@ let saveAdditionalIngredients = function () {
     console.debug(pizzaData[currentPizza].additionalIngredients);
 };
 
-onMount(function(e) {
-    numSelectedAdditionalIngredients = 0;
+$: {
+    numSelectedAdditionalIngredients
+    =
+    pizzaData[currentPizza].additionalIngredients.length
+    ;
+};
 
-    options.querySelectorAll("input").forEach(function(element) {
+onMount(function(e) {
+    /*options.querySelectorAll("input").forEach(function(element) {
         for(let i = 0; i < pizzaData[currentPizza].additionalIngredients.length; i++) {
             let value = pizzaData[currentPizza].additionalIngredients[i];
 
@@ -74,7 +79,7 @@ onMount(function(e) {
                 numSelectedAdditionalIngredients++;
             }
         }
-    });
+    });*/
 });
 
 </script>
@@ -96,8 +101,10 @@ onMount(function(e) {
             <div class="options" bind:this={options}>
                 {#each window.ADDITIONAL_INGREDIENTS as data}
                     <AdditionalIngredientCheckbox
-                    bind:numSelectedAdditionalIngredients
-                    {data}
+                        bind:numSelectedAdditionalIngredients
+                        {currentPizza}
+                        {pizzaData}
+                        {data}
                     />
                 {/each}
             </div>

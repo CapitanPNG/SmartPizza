@@ -1,7 +1,6 @@
 <script>
 
 import { createEventDispatcher } from 'svelte';
-import { binding_callbacks } from 'svelte/internal';
 
 const dispatch = createEventDispatcher();
 
