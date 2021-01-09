@@ -37,7 +37,23 @@ $: additionalPrice =
 let saveAdditionalIngredients = function () {
     pizzaData[currentPizza].additionalIngredients = [];
 
-    options.querySelectorAll("input").forEach(function(element) {
+    for(let i = 0; i < pizzaData[currentPizza].tmp.additionalIngredients.length; i++) {
+        pizzaData[currentPizza].additionalIngredients.push(
+            pizzaData[currentPizza].tmp.additionalIngredients[i]
+        );
+    }
+
+    pizzaData[currentPizza].price =
+        (
+            parseFloat(window.PIZZA[currentPizza].price)
+            +
+             numSelectedAdditionalIngredients * window.ADDITIONAL_INGREDIENT_PRICE
+        )
+        *
+        pizzaData[currentPizza].quantity
+    ;
+
+    /*options.querySelectorAll("input").forEach(function(element) {
         if(element.checked) {
             pizzaData[currentPizza].additionalIngredients.push(element.value);
 
@@ -51,7 +67,7 @@ let saveAdditionalIngredients = function () {
                 pizzaData[currentPizza].quantity
             ;
         }
-    });
+    });*/
 
     dialogsState.additionalIngredients = false;
 

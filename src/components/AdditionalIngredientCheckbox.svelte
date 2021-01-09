@@ -12,6 +12,28 @@ export let data;
 let checked = false;
 let value   = data.name;
 
+Array.prototype.findValue = function (val) {
+    for(let i = 0; i < this.length; i++) {
+        if(this[i] === val) {
+            return i;
+        }
+    }
+
+    return null;
+};
+
+Array.prototype.removeValue = function (val) {
+    let result = [];
+
+    for(let i = 0; i < this.length; i++) {
+        if(this[i] !== val) {
+            result.push(this[i]);
+        }
+    }
+
+    return result;
+}
+
 let callbacks = {
     "swg-change": function (e) {
         //console.debug(e.detail);
@@ -40,6 +62,11 @@ let callbacks = {
                 if(numSelectedAdditionalIngredients < 0) {
                     numSelectedAdditionalIngredients = 0;
                 }
+
+                pizzaData[currentPizza].tmp.additionalIngredients
+                =
+                pizzaData[currentPizza].tmp.additionalIngredients
+                .removeValue(value);
             break;
             case true:
                 numSelectedAdditionalIngredients++;
@@ -54,6 +81,20 @@ let callbacks = {
                     window.MAX_SELECTED_ADDITIONAL_INGREDIENTS;
 
                     checked = false;
+                }
+
+                if(!checked) {
+                    return;
+                }
+
+                if(
+                    pizzaData[currentPizza].tmp.additionalIngredients
+                    .findValue(value)
+                    ===
+                    null
+                ) {
+                    pizzaData[currentPizza].tmp.additionalIngredients
+                    .push(value);
                 }
             break;
         }

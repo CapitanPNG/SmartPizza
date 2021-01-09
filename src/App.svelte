@@ -116,7 +116,10 @@ let setDefaultsPizzaData = function () {
 		pizzaData[key] = {
 			"price": window.PIZZA[key].price,
 			"quantity": 1,
-			"additionalIngredients": []
+			"additionalIngredients": [],
+			"tmp": {
+				"additionalIngredients": []
+			}
 		};
 	}
 };
