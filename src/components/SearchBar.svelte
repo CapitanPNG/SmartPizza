@@ -1,16 +1,16 @@
 <script>
 
-let value = "";
+import { searchResults } from '../stores/searchResults';
 
-export let searchResults = [];
+let value = "";
 
 let callbacks = {
     "keyup": function (e) {
-        searchResults = [];
+        $searchResults = [];
 
         for(let key in window.PIZZA) {
             if(key.toLowerCase().indexOf(value.toLowerCase()) !== -1) {
-                searchResults.push(key);
+                $searchResults.push(key);
             }
         }
     }

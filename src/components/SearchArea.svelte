@@ -1,5 +1,7 @@
 <script>
 
+import { searchResults } from '../stores/searchResults';
+
 import SearchBar from './SearchBar.svelte';
 import SearchResults from './SearchResults.svelte';
 import SearchResult from './SearchResult.svelte';
@@ -9,12 +11,10 @@ export let currentPizza = null;
 export let pizzaData;
 export let shoppingCart;
 
-let searchResults = [];
-
 </script>
 
 <div class="search-area">
-    <SearchBar bind:searchResults />
+    <SearchBar />
     <SearchResults>
         {#each searchResults as id}
             <SearchResult
