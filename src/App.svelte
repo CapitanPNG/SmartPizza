@@ -2,6 +2,8 @@
 
 import { onMount } from 'svelte';
 
+import { searchResults } from './stores/searchResults';
+
 import AdditionalIngredientsDialog from './components/AdditionalIngredientsDialog.svelte';
 import CartDialog from './components/CartDialog.svelte';
 import SearchArea from './components/SearchArea.svelte';
@@ -104,8 +106,6 @@ let dialogsState = {
 	"additionalIngredients": false,
 	"cart"                 : false
 };
-
-let searchResults = [];
 
 let currentPizza = null;
 
