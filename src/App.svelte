@@ -5,6 +5,7 @@ import { onMount } from 'svelte';
 import { pizzaData } from './stores/pizzaData';
 import { dialogsState } from './stores/dialogsState';
 import { shoppingCart } from './stores/shoppingCart';
+import { checkoutDone } from './stores/checkoutDone';
 
 import AdditionalIngredientsDialog from './components/AdditionalIngredientsDialog.svelte';
 import CartDialog from './components/CartDialog.svelte';
@@ -117,8 +118,6 @@ let setDefaultsPizzaData = function () {
 	}
 };
 
-let checkoutDone = false;
-
 onMount(function(e) {
 	setDefaultsPizzaData();
 });
@@ -156,14 +155,11 @@ onMount(function(e) {
 	{#if $dialogsState.cart}
 		<CartDialog
 			onClose={()=>{$dialogsState.cart = false;}}
-			bind:checkoutDone
 		/>
 	{/if}
 
-	{#if checkoutDone}
-		<CheckoutMessage
-			bind:checkoutDone
-		/>
+	{#if $checkoutDone}
+		<CheckoutMessage />
 	{/if}
 </main>
 

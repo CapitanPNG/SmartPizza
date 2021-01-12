@@ -3,15 +3,17 @@
 import { onMount } from 'svelte';
 
 import { shoppingCart } from '../stores/shoppingCart';
+import { checkoutDone } from '../stores/checkoutDone';
+import { currentPizza } from '../stores/currentPizza';
 
 import Button from './Button.svelte';
-
-export let checkoutDone;
 
 let continueShopping = function () {
     $shoppingCart = [];
 
-    checkoutDone = false;
+    $checkoutDone = false;
+
+    $currentPizza = null;
 };
 
 let downloadDebug = function () {

@@ -2,6 +2,8 @@
 
 import { dialogsState } from '../stores/dialogsState';
 import { shoppingCart } from '../stores/shoppingCart';
+import { checkoutDone } from '../stores/checkoutDone';
+import { checkoutTotalPrice } from '../stores/checkoutTotalPrice';
 
 import Dialog from './Dialog.svelte';
 import Button from './Button.svelte';
@@ -9,14 +11,11 @@ import Textfield from './Textfield.svelte';
 import CartItem from './CartItem.svelte';
 
 export let onClose = ()=>{};
-export let checkoutDone;
-
-let checkoutTotalPrice;
 
 let checkout = function () {
     $dialogsState.cart = false;
 
-    checkoutDone = true;
+    $checkoutDone = true;
 };
 
 </script>
@@ -51,16 +50,14 @@ let checkout = function () {
                 <div class="cart-list">
                     {#each $shoppingCart as item, index}
                         <CartItem
-                            bind:checkoutTotalPrice
                             {item}
                             {index}
-                            {shoppingCart}
                         />
                     {/each}
 
                     <div class="checkout-total-price-box">
                         <div class="checkout-total-price">
-                            Total: {checkoutTotalPrice}
+                            Total: {$checkoutTotalPrice}
                         </div>
                     </div>
                 </div>

@@ -1,12 +1,13 @@
 <script>
 
 import { shoppingCart } from '../stores/shoppingCart';
+import { checkoutTotalPrice } from '../stores/checkoutTotalPrice';
 
 import NumericTextfield from './NumericTextfield.svelte';
+import { onMount } from 'svelte';
 
 export let item;
 export let index;
-export let checkoutTotalPrice;
 
 let getCheckoutTotalPrice = function () {
     let result = 0;
@@ -32,8 +33,8 @@ let getCheckoutTotalPrice = function () {
     return window.currencyFormatter.format(result);
 };
 
-$: $shoppingCart[index].totalPrice =
-    window.currencyFormatter.format(
+let getItemTotalPrice = function () {
+    let price = window.currencyFormatter.format(
         $shoppingCart[index].quantity
         *
         (
@@ -45,27 +46,35 @@ $: $shoppingCart[index].totalPrice =
                 window.ADDITIONAL_INGREDIENT_PRICE
             )
         )
-    )
-;
+    );
 
-$: checkoutTotalPrice = getCheckoutTotalPrice();
-
-let callbacks = {
-    "change": function (e) {
-        $shoppingCart[index].quantity = e.detail.value;
-        
-        item.quantity = $shoppingCart[index].quantity;
-
-        item = item;
-
-        window.setTimeout(
-            function() {
-                checkoutTotalPrice = getCheckoutTotalPrice();
-            },
-            500
-        );
-    }
+    return price;
 };
+
+//$: $shoppingCart[index].totalPrice = getItemTotalPrice();
+
+//$: $checkoutTotalPrice = getCheckoutTotalPrice();
+
+let updateQuantity = function (e) {
+    $shoppingCart[index].quantity = e.detail.value;
+        
+    item.quantity = $shoppingCart[index].quantity;
+
+    item.totalPrice = getItemTotalPrice();
+
+    item = item;
+
+    window.setTimeout(
+        function() {
+            $checkoutTotalPrice = getCheckoutTotalPrice();
+        },
+        500
+    );
+};
+
+onMount(function(e) {
+    $checkoutTotalPrice = getCheckoutTotalPrice();
+});
 
 </script>
 
@@ -89,7 +98,7 @@ let callbacks = {
             label="Quantità"
             minValue=1
 
-            on:swg-change={callbacks.change}
+            on:swg-change={updateQuantity}
         />
     </div>
     <div class="pizza-total-price-box">
