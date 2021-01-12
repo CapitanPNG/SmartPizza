@@ -1,19 +1,18 @@
 <script>
-import { binding_callbacks } from 'svelte/internal';
 
+import { shoppingCart } from '../stores/shoppingCart';
 
 import NumericTextfield from './NumericTextfield.svelte';
 
 export let item;
 export let index;
-export let shoppingCart;
 export let checkoutTotalPrice;
 
 let getCheckoutTotalPrice = function () {
     let result = 0;
 
-    for(let i = 0; i < shoppingCart.length; i++) {
-        let value = shoppingCart[i];
+    for(let i = 0; i < $shoppingCart.length; i++) {
+        let value = $shoppingCart[i];
 
         let price = value.totalPrice.substring(
             0,
@@ -33,15 +32,15 @@ let getCheckoutTotalPrice = function () {
     return window.currencyFormatter.format(result);
 };
 
-$: shoppingCart[index].totalPrice =
+$: $shoppingCart[index].totalPrice =
     window.currencyFormatter.format(
-        shoppingCart[index].quantity
+        $shoppingCart[index].quantity
         *
         (
-            parseFloat(window.PIZZA[shoppingCart[index].id.name].price)
+            parseFloat(window.PIZZA[$shoppingCart[index].id.name].price)
             +
             (
-                shoppingCart[index].additionalIngredients.length
+                $shoppingCart[index].additionalIngredients.length
                 *
                 window.ADDITIONAL_INGREDIENT_PRICE
             )
@@ -53,13 +52,11 @@ $: checkoutTotalPrice = getCheckoutTotalPrice();
 
 let callbacks = {
     "change": function (e) {
-        shoppingCart[index].quantity = e.detail.value;
+        $shoppingCart[index].quantity = e.detail.value;
         
-        item.quantity = shoppingCart[index].quantity;
+        item.quantity = $shoppingCart[index].quantity;
 
         item = item;
-
-        shoppingCart = shoppingCart;
 
         window.setTimeout(
             function() {
@@ -86,7 +83,12 @@ let callbacks = {
         {/each}
     </div>
     <div class="pizza-quantity">
-        <NumericTextfield label="Quantità" minValue=1 bind:value={item.quantity}
+        <NumericTextfield
+            bind:value={item.quantity}
+
+            label="Quantità"
+            minValue=1
+
             on:swg-change={callbacks.change}
         />
     </div>

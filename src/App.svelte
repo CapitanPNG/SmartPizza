@@ -4,6 +4,7 @@ import { onMount } from 'svelte';
 
 import { pizzaData } from './stores/pizzaData';
 import { dialogsState } from './stores/dialogsState';
+import { shoppingCart } from './stores/shoppingCart';
 
 import AdditionalIngredientsDialog from './components/AdditionalIngredientsDialog.svelte';
 import CartDialog from './components/CartDialog.svelte';
@@ -116,8 +117,6 @@ let setDefaultsPizzaData = function () {
 	}
 };
 
-let shoppingCart = [];
-
 let checkoutDone = false;
 
 onMount(function(e) {
@@ -134,13 +133,11 @@ onMount(function(e) {
 </svelte:head>
 
 <main>
-	<SearchArea
-		bind:shoppingCart
-	/>
+	<SearchArea />
 
 	<ResultDescription />
 
-	{#if shoppingCart.length > 0}
+	{#if $shoppingCart.length > 0}
 		<Button>
 			<div class="btn btn-color-full btn-go-to-cart"
 				on:click={()=>{$dialogsState.cart = true;}}
@@ -160,13 +157,11 @@ onMount(function(e) {
 		<CartDialog
 			onClose={()=>{$dialogsState.cart = false;}}
 			bind:checkoutDone
-			{shoppingCart}
 		/>
 	{/if}
 
 	{#if checkoutDone}
 		<CheckoutMessage
-			bind:shoppingCart
 			bind:checkoutDone
 		/>
 	{/if}

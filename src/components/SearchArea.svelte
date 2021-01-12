@@ -6,18 +6,13 @@ import SearchBar from './SearchBar.svelte';
 import SearchResults from './SearchResults.svelte';
 import SearchResult from './SearchResult.svelte';
 
-export let shoppingCart;
-
 </script>
 
 <div class="search-area">
     <SearchBar />
     <SearchResults>
         {#each $searchResults as id}
-            <SearchResult
-                bind:shoppingCart
-                {id}
-            />
+            <SearchResult {id} />
         {/each}
     </SearchResults>
 </div>

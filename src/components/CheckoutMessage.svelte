@@ -2,20 +2,21 @@
 
 import { onMount } from 'svelte';
 
+import { shoppingCart } from '../stores/shoppingCart';
+
 import Button from './Button.svelte';
 
 export let checkoutDone;
-export let shoppingCart;
 
 let continueShopping = function () {
-    shoppingCart = [];
+    $shoppingCart = [];
 
     checkoutDone = false;
 };
 
 let downloadDebug = function () {
     let content = JSON.stringify(
-        shoppingCart,
+        $shoppingCart,
         null,
         4
     );

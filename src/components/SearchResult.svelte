@@ -5,12 +5,12 @@ import { onMount } from 'svelte';
 import { currentPizza } from '../stores/currentPizza';
 import { pizzaData } from '../stores/pizzaData';
 import { dialogsState } from '../stores/dialogsState';
+import { shoppingCart } from '../stores/shoppingCart';
 
 import Button from './Button.svelte';
 import NumericTextfield from './NumericTextfield.svelte';
 
 export let id;
-export let shoppingCart;
 
 /*$: $pizzaData[id].price =
     window.currencyFormatter.format(
@@ -90,9 +90,7 @@ let addToCart = function () {
         "totalPrice"           : $pizzaData[id].price
     };
 
-    shoppingCart.push(item);
-
-    shoppingCart = shoppingCart;
+    $shoppingCart.push(item);
 
     $pizzaData[id].price =
         window.currencyFormatter.format(
@@ -107,7 +105,7 @@ let addToCart = function () {
     $pizzaData[id].additionalIngredients = [];
 
     console.debug("Shopping-Cart: ");
-    console.debug(shoppingCart);
+    console.debug($shoppingCart);
 };
 
 onMount(function(e) {
