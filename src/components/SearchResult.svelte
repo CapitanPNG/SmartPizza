@@ -4,11 +4,11 @@ import { onMount } from 'svelte';
 
 import { currentPizza } from '../stores/currentPizza';
 import { pizzaData } from '../stores/pizzaData';
+import { dialogsState } from '../stores/dialogsState';
 
 import Button from './Button.svelte';
 import NumericTextfield from './NumericTextfield.svelte';
 
-export let dialogsState;
 export let id;
 export let shoppingCart;
 
@@ -61,7 +61,7 @@ let showPizzaDetails = function () {
 let openAdditionalIngredientsDialog = function () {
     $currentPizza = id;
 
-    dialogsState.additionalIngredients = true;
+    $dialogsState.additionalIngredients = true;
 };
 
 let addToCart = function () {

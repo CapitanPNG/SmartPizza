@@ -4,6 +4,7 @@ import { onMount } from 'svelte';
 
 import { currentPizza } from '../stores/currentPizza';
 import { pizzaData } from '../stores/pizzaData';
+import { numSelectedAdditionalIngredients } from '../stores/numSelectedAdditionalIngredients';
 
 import Dialog from './Dialog.svelte';
 
@@ -11,9 +12,6 @@ import AdditionalIngredientCheckbox from "./AdditionalIngredientCheckbox.svelte"
 import Button from './Button.svelte';
 
 export let onClose = ()=>{};
-
-export let dialogsState;
-export let numSelectedAdditionalIngredients;
 
 let additionalPrice = 0;
 
@@ -30,7 +28,7 @@ let formatter = new Intl.NumberFormat(
 $: additionalPrice =
     window.currencyFormatter.format(
         (
-            numSelectedAdditionalIngredients * window.ADDITIONAL_INGREDIENT_PRICE
+            $numSelectedAdditionalIngredients * window.ADDITIONAL_INGREDIENT_PRICE
         )
     )
 ;
@@ -48,7 +46,7 @@ let saveAdditionalIngredients = function () {
         (
             parseFloat(window.PIZZA[$currentPizza].price)
             +
-             numSelectedAdditionalIngredients * window.ADDITIONAL_INGREDIENT_PRICE
+             $numSelectedAdditionalIngredients * window.ADDITIONAL_INGREDIENT_PRICE
         )
         *
         $pizzaData[$currentPizza].quantity
@@ -70,14 +68,14 @@ let saveAdditionalIngredients = function () {
         }
     });*/
 
-    dialogsState.additionalIngredients = false;
+    $dialogsState.additionalIngredients = false;
 
     console.debug("Additional-Ingredients-Saved: ");
     console.debug($pizzaData[$currentPizza].additionalIngredients);
 };
 
 onMount(function(e) {
-    numSelectedAdditionalIngredients
+    $numSelectedAdditionalIngredients
     =
     $pizzaData[$currentPizza].additionalIngredients.length
     ;
@@ -116,7 +114,6 @@ onMount(function(e) {
             <div class="options" bind:this={options}>
                 {#each window.ADDITIONAL_INGREDIENTS as data}
                     <AdditionalIngredientCheckbox
-                        bind:numSelectedAdditionalIngredients
                         {data}
                     />
                 {/each}

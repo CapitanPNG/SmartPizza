@@ -3,6 +3,7 @@
 import { onMount } from 'svelte';
 
 import { pizzaData } from './stores/pizzaData';
+import { dialogsState } from './stores/dialogsState';
 
 import AdditionalIngredientsDialog from './components/AdditionalIngredientsDialog.svelte';
 import CartDialog from './components/CartDialog.svelte';
@@ -102,11 +103,6 @@ window.currencyFormatter = new Intl.NumberFormat(
     }
 );
 
-let dialogsState = {
-	"additionalIngredients": false,
-	"cart"                 : false
-};
-
 let setDefaultsPizzaData = function () {
 	for(let key in window.PIZZA) {
 		$pizzaData[key] = {
@@ -119,8 +115,6 @@ let setDefaultsPizzaData = function () {
 		};
 	}
 };
-
-let numSelectedAdditionalIngredients = 0;
 
 let shoppingCart = [];
 
@@ -141,7 +135,6 @@ onMount(function(e) {
 
 <main>
 	<SearchArea
-		bind:dialogsState
 		bind:shoppingCart
 	/>
 
@@ -150,25 +143,22 @@ onMount(function(e) {
 	{#if shoppingCart.length > 0}
 		<Button>
 			<div class="btn btn-color-full btn-go-to-cart"
-				on:click={()=>{dialogsState.cart = true;}}
+				on:click={()=>{$dialogsState.cart = true;}}
 			>
 				Procedi al carrello
 			</div>
 		</Button>
 	{/if}
 
-	{#if dialogsState.additionalIngredients}
+	{#if $dialogsState.additionalIngredients}
 		<AdditionalIngredientsDialog
-			onClose={()=>{dialogsState.additionalIngredients = false;}}
-			bind:dialogsState
-			{numSelectedAdditionalIngredients}
+			onClose={()=>{$dialogsState.additionalIngredients = false;}}
 		/>
 	{/if}
 
-	{#if dialogsState.cart}
+	{#if $dialogsState.cart}
 		<CartDialog
-			onClose={()=>{dialogsState.cart = false;}}
-			bind:dialogsState
+			onClose={()=>{$dialogsState.cart = false;}}
 			bind:checkoutDone
 			{shoppingCart}
 		/>

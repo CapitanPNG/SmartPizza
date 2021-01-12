@@ -4,10 +4,10 @@ import { onMount } from 'svelte';
 
 import { currentPizza } from '../stores/currentPizza';
 import { pizzaData } from '../stores/pizzaData';
+import { numSelectedAdditionalIngredients } from '../stores/numSelectedAdditionalIngredients';
 
 import Checkbox from './Checkbox.svelte';
 
-export let numSelectedAdditionalIngredients;
 export let data;
 
 let checked = false;
@@ -58,10 +58,10 @@ let callbacks = {
 
         switch(checked) {
             case false:
-                numSelectedAdditionalIngredients--;
+                $numSelectedAdditionalIngredients--;
 
-                if(numSelectedAdditionalIngredients < 0) {
-                    numSelectedAdditionalIngredients = 0;
+                if($numSelectedAdditionalIngredients < 0) {
+                    $numSelectedAdditionalIngredients = 0;
                 }
 
                 $pizzaData[$currentPizza].tmp.additionalIngredients
@@ -70,14 +70,14 @@ let callbacks = {
                 .removeValue(value);
             break;
             case true:
-                numSelectedAdditionalIngredients++;
+                $numSelectedAdditionalIngredients++;
 
                 if(
-                    numSelectedAdditionalIngredients
+                    $numSelectedAdditionalIngredients
                     >
                     window.MAX_SELECTED_ADDITIONAL_INGREDIENTS
                 ) {
-                    numSelectedAdditionalIngredients
+                    $numSelectedAdditionalIngredients
                     =
                     window.MAX_SELECTED_ADDITIONAL_INGREDIENTS;
 
