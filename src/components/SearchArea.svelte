@@ -16,7 +16,7 @@ export let shoppingCart;
 <div class="search-area">
     <SearchBar />
     <SearchResults>
-        {#each searchResults as id}
+        {#each $searchResults as id}
             <SearchResult
                 bind:dialogsState
                 bind:currentPizza
