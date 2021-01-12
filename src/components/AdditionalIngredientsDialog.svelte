@@ -5,6 +5,7 @@ import { onMount } from 'svelte';
 import { currentPizza } from '../stores/currentPizza';
 import { pizzaData } from '../stores/pizzaData';
 import { numSelectedAdditionalIngredients } from '../stores/numSelectedAdditionalIngredients';
+import { dialogsState } from '../stores/dialogsState';
 
 import Dialog from './Dialog.svelte';
 
