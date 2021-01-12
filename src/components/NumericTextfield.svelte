@@ -69,6 +69,29 @@ let incrementValue = function () {
 }
 
 let callbacks = {
+    "input": function (e) {
+        if(value < minValue) {
+            value = minValue;
+        }
+
+        if(value > maxValue) {
+            value = maxValue;
+        }
+
+        let data = {
+            "value"      : value,
+            "valueBefore": valueBefore
+        };
+
+        if(value !== valueBefore) {
+            dispatch(
+                "swg-change",
+                data
+            );
+        }
+
+        valueBefore = value;
+    },
     "keydown": function (e) {
         //console.debug(e);
 
@@ -123,9 +146,15 @@ onMount(function(e) {
         <div class="label">
             {label}
         </div>
-        <input bind:value={value} type=text tabindex=0
-            on:keydown={callbacks.keydown}
-            on:wheel={callbacks.wheel}
+        <input
+            bind:value
+
+            type=text
+            tabindex=0
+            
+            on:input={callbacks["input"]}
+            on:keydown={callbacks["keydown"]}
+            on:wheel={callbacks["wheel"]}
         >
     </div>
     <Button>

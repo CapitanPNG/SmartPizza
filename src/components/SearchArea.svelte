@@ -7,8 +7,6 @@ import SearchResults from './SearchResults.svelte';
 import SearchResult from './SearchResult.svelte';
 
 export let dialogsState;
-export let currentPizza = null;
-export let pizzaData;
 export let shoppingCart;
 
 </script>
@@ -19,7 +17,6 @@ export let shoppingCart;
         {#each $searchResults as id}
             <SearchResult
                 bind:dialogsState
-                bind:pizzaData
                 bind:shoppingCart
                 {id}
             />

@@ -1,32 +1,58 @@
 <script>
+import { onMount } from 'svelte';
+
 
 import { currentPizza } from '../stores/currentPizza';
+import { pizzaData } from '../stores/pizzaData';
 
 import Button from './Button.svelte';
 import NumericTextfield from './NumericTextfield.svelte';
 
 export let dialogsState;
-export let pizzaData;
 export let id;
 export let shoppingCart;
 
-$: pizzaData[id].price =
+/*$: $pizzaData[id].price =
     window.currencyFormatter.format(
         (
-            pizzaData[id].quantity
+            $pizzaData[id].quantity
             *
             (
                 parseFloat(window.PIZZA[id].price)
                 +
                 (
-                    pizzaData[id].additionalIngredients.length
+                    $pizzaData[id].additionalIngredients.length
                     *
                     window.ADDITIONAL_INGREDIENT_PRICE
                 )
             )
         )
     )
-;
+;*/
+
+let calcPrice = function () {
+    let price = window.currencyFormatter.format(
+        (
+            $pizzaData[id].quantity
+            *
+            (
+                parseFloat(window.PIZZA[id].price)
+                +
+                (
+                    $pizzaData[id].additionalIngredients.length
+                    *
+                    window.ADDITIONAL_INGREDIENT_PRICE
+                )
+            )
+        )
+    );
+
+    return price;
+};
+
+let updateQuantity = function (e) {
+    $pizzaData[id].price = calcPrice();
+};
 
 let showPizzaDetails = function () {
     $currentPizza = id;
@@ -36,7 +62,7 @@ let openAdditionalIngredientsDialog = function () {
     $currentPizza = id;
 
     dialogsState.additionalIngredients = true;
-}
+};
 
 let addToCart = function () {
     showPizzaDetails();
@@ -48,27 +74,27 @@ let addToCart = function () {
 
     let additionalIngredients = [];
 
-    for(let i = 0; i < pizzaData[id].additionalIngredients.length; i++) {
+    for(let i = 0; i < $pizzaData[id].additionalIngredients.length; i++) {
         additionalIngredients.push({
-            "name" : pizzaData[id].additionalIngredients[i],
+            "name" : $pizzaData[id].additionalIngredients[i],
             "price": window.currencyFormatter.format(parseFloat(window.ADDITIONAL_INGREDIENT_PRICE))
         });
     }
 
-    let quantity = pizzaData[id].quantity;
+    let quantity = $pizzaData[id].quantity;
 
     let item = {
         "id"                   : identifier,
         "additionalIngredients": additionalIngredients,
         "quantity"             : quantity,
-        "totalPrice"           : pizzaData[id].price
+        "totalPrice"           : $pizzaData[id].price
     };
 
     shoppingCart.push(item);
 
     shoppingCart = shoppingCart;
 
-    pizzaData[id].price =
+    $pizzaData[id].price =
         window.currencyFormatter.format(
             parseFloat(
                 window.PIZZA[id].price
@@ -76,13 +102,17 @@ let addToCart = function () {
         )
     ;
 
-    pizzaData[id].quantity = 1;
+    $pizzaData[id].quantity = 1;
 
-    pizzaData[id].additionalIngredients = [];
+    $pizzaData[id].additionalIngredients = [];
 
     console.debug("Shopping-Cart: ");
     console.debug(shoppingCart);
 };
+
+onMount(function(e) {
+    updateQuantity();
+});
 
 </script>
 
@@ -97,10 +127,17 @@ let addToCart = function () {
     </div>
     <div class="pizza-controls">
         <div class="pizza-price">
-            {pizzaData[id].price}
+            {$pizzaData[id].price}
         </div>
         <div class="pizza-quantity">
-            <NumericTextfield label="Quantità" minValue=1 bind:value={pizzaData[id].quantity} />
+            <NumericTextfield
+                bind:value={$pizzaData[id].quantity}
+
+                label="Quantità"
+                minValue=1
+
+                on:swg-change={updateQuantity}
+            />
         </div>
         <div class="pizza-buttons">
             <Button>

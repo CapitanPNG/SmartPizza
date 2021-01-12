@@ -3,6 +3,7 @@
 import { onMount } from 'svelte';
 
 import { currentPizza } from '../stores/currentPizza';
+import { pizzaData } from '../stores/pizzaData';
 
 import Dialog from './Dialog.svelte';
 
@@ -12,7 +13,6 @@ import Button from './Button.svelte';
 export let onClose = ()=>{};
 
 export let dialogsState;
-export let pizzaData;
 export let numSelectedAdditionalIngredients;
 
 let additionalPrice = 0;
@@ -36,22 +36,22 @@ $: additionalPrice =
 ;
 
 let saveAdditionalIngredients = function () {
-    pizzaData[$currentPizza].additionalIngredients = [];
+    $pizzaData[$currentPizza].additionalIngredients = [];
 
-    for(let i = 0; i < pizzaData[$currentPizza].tmp.additionalIngredients.length; i++) {
-        pizzaData[$currentPizza].additionalIngredients.push(
-            pizzaData[$currentPizza].tmp.additionalIngredients[i]
+    for(let i = 0; i < $pizzaData[$currentPizza].tmp.additionalIngredients.length; i++) {
+        $pizzaData[$currentPizza].additionalIngredients.push(
+            $pizzaData[$currentPizza].tmp.additionalIngredients[i]
         );
     }
 
-    pizzaData[$currentPizza].price =
+    $pizzaData[$currentPizza].price =
         (
             parseFloat(window.PIZZA[$currentPizza].price)
             +
              numSelectedAdditionalIngredients * window.ADDITIONAL_INGREDIENT_PRICE
         )
         *
-        pizzaData[$currentPizza].quantity
+        $pizzaData[$currentPizza].quantity
     ;
 
     /*options.querySelectorAll("input").forEach(function(element) {
@@ -73,13 +73,13 @@ let saveAdditionalIngredients = function () {
     dialogsState.additionalIngredients = false;
 
     console.debug("Additional-Ingredients-Saved: ");
-    console.debug(pizzaData[$currentPizza].additionalIngredients);
+    console.debug($pizzaData[$currentPizza].additionalIngredients);
 };
 
 onMount(function(e) {
     numSelectedAdditionalIngredients
     =
-    pizzaData[$currentPizza].additionalIngredients.length
+    $pizzaData[$currentPizza].additionalIngredients.length
     ;
 
     /*options.querySelectorAll("input").forEach(function(element) {
@@ -117,7 +117,6 @@ onMount(function(e) {
                 {#each window.ADDITIONAL_INGREDIENTS as data}
                     <AdditionalIngredientCheckbox
                         bind:numSelectedAdditionalIngredients
-                        {pizzaData}
                         {data}
                     />
                 {/each}
