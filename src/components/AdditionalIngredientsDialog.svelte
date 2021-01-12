@@ -18,13 +18,25 @@ let additionalPrice = 0;
 
 let options = null;
 
-let formatter = new Intl.NumberFormat(
-    "it-IT",
-    {
-        "style"   : "currency",
-        "currency": "EUR"
-    }
-);
+let calcPrice = function () {
+    let price = window.currencyFormatter.format(
+        (
+            $pizzaData[$currentPizza].quantity
+            *
+            (
+                parseFloat(window.PIZZA[$currentPizza].price)
+                +
+                (
+                    $pizzaData[$currentPizza].additionalIngredients.length
+                    *
+                    window.ADDITIONAL_INGREDIENT_PRICE
+                )
+            )
+        )
+    );
+
+    return price;
+};
 
 $: additionalPrice =
     window.currencyFormatter.format(
@@ -43,15 +55,7 @@ let saveAdditionalIngredients = function () {
         );
     }
 
-    $pizzaData[$currentPizza].price =
-        (
-            parseFloat(window.PIZZA[$currentPizza].price)
-            +
-             $numSelectedAdditionalIngredients * window.ADDITIONAL_INGREDIENT_PRICE
-        )
-        *
-        $pizzaData[$currentPizza].quantity
-    ;
+    $pizzaData[$currentPizza].price = calcPrice();
 
     /*options.querySelectorAll("input").forEach(function(element) {
         if(element.checked) {
