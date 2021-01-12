@@ -6,7 +6,6 @@ import SearchBar from './SearchBar.svelte';
 import SearchResults from './SearchResults.svelte';
 import SearchResult from './SearchResult.svelte';
 
-export let dialogsState;
 export let shoppingCart;
 
 </script>
@@ -16,7 +15,6 @@ export let shoppingCart;
     <SearchResults>
         {#each $searchResults as id}
             <SearchResult
-                bind:dialogsState
                 bind:shoppingCart
                 {id}
             />

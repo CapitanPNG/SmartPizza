@@ -1,6 +1,6 @@
 <script>
-import { onMount } from 'svelte';
 
+import { onMount } from 'svelte';
 
 import { currentPizza } from '../stores/currentPizza';
 import { pizzaData } from '../stores/pizzaData';
