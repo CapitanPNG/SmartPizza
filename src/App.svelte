@@ -2,6 +2,8 @@
 
 import { onMount } from 'svelte';
 
+import { currentPizza } from './stores/currentPizza';
+
 import AdditionalIngredientsDialog from './components/AdditionalIngredientsDialog.svelte';
 import CartDialog from './components/CartDialog.svelte';
 import SearchArea from './components/SearchArea.svelte';
@@ -105,8 +107,6 @@ let dialogsState = {
 	"cart"                 : false
 };
 
-let currentPizza = null;
-
 let pizzaData = {};
 
 let setDefaultsPizzaData = function () {
@@ -144,12 +144,11 @@ onMount(function(e) {
 <main>
 	<SearchArea
 		bind:dialogsState
-		bind:currentPizza
 		bind:pizzaData
 		bind:shoppingCart
 	/>
 
-	<ResultDescription {currentPizza} />
+	<ResultDescription />
 
 	{#if shoppingCart.length > 0}
 		<Button>

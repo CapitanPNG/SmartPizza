@@ -19,7 +19,6 @@ export let shoppingCart;
         {#each $searchResults as id}
             <SearchResult
                 bind:dialogsState
-                bind:currentPizza
                 bind:pizzaData
                 bind:shoppingCart
                 {id}

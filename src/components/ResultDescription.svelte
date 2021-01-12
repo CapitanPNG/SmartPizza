@@ -1,19 +1,19 @@
 <script>
 
-export let currentPizza = null;
+import { currentPizza } from '../stores/currentPizza';
 
 </script>
 
 <div class="result-description pizza-details">
-    {#if currentPizza !== null}
+    {#if $currentPizza !== null}
         <div class="pizza-image-box">
-            <img src={window.PIZZA[currentPizza].image} alt={"Pizza " + currentPizza}>
+            <img src={window.PIZZA[$currentPizza].image} alt={"Pizza " + $currentPizza}>
         </div>
         <div class="pizza-name">
-            Pizza {currentPizza}
+            Pizza {$currentPizza}
         </div>
         <div class="pizza-description">
-            {window.PIZZA[currentPizza].description}
+            {window.PIZZA[$currentPizza].description}
         </div>
     {/if}
 </div>

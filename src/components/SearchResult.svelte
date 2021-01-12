@@ -1,10 +1,11 @@
 <script>
 
+import { currentPizza } from '../stores/currentPizza';
+
 import Button from './Button.svelte';
 import NumericTextfield from './NumericTextfield.svelte';
 
 export let dialogsState;
-export let currentPizza;
 export let pizzaData;
 export let id;
 export let shoppingCart;
@@ -28,11 +29,11 @@ $: pizzaData[id].price =
 ;
 
 let showPizzaDetails = function () {
-    currentPizza = id;
+    $currentPizza = id;
 };
 
 let openAdditionalIngredientsDialog = function () {
-    currentPizza = id;
+    $currentPizza = id;
 
     dialogsState.additionalIngredients = true;
 }

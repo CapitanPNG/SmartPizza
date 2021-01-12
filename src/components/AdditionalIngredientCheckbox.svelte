@@ -2,10 +2,11 @@
 
 import { onMount } from 'svelte';
 
+import { currentPizza } from '../stores/currentPizza';
+
 import Checkbox from './Checkbox.svelte';
 
 export let numSelectedAdditionalIngredients;
-export let currentPizza;
 export let pizzaData;
 export let data;
 
@@ -102,8 +103,8 @@ let callbacks = {
 };
 
 onMount(function(e) {
-    for(let i = 0; i < pizzaData[currentPizza].additionalIngredients.length; i++) {
-        if(pizzaData[currentPizza].additionalIngredients[i] === value) {
+    for(let i = 0; i < pizzaData[$currentPizza].additionalIngredients.length; i++) {
+        if(pizzaData[$currentPizza].additionalIngredients[i] === value) {
             checked = true;
         }
     }
